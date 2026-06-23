@@ -137,7 +137,7 @@
                 v-model="consentForm.procedure" 
                 required
                 type="text" 
-                placeholder="Örn: Total Histerektomi, Kolposkopi"
+                placeholder="Örn: Diş İmplantı, Koroner Anjiyografi, Histeroskopi"
                 class="w-full px-3.5 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-[#088496] focus:ring-4 focus:ring-[#088496]/15 transition-all duration-300"
               />
             </div>
@@ -149,7 +149,8 @@
                 class="w-full px-3.5 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-[#088496] focus:ring-4 focus:ring-[#088496]/15 transition-all duration-300"
               >
                 <option value="Dr. Müge Ateş Tıkız">Dr. Müge Ateş Tıkız (Jinekolojik Onkoloji)</option>
-                <option value="Dr. Selin Kaya">Dr. Selin Kaya (Kadın Hastalıkları)</option>
+                <option value="Dr. Selin Kaya">Dr. Selin Kaya (Diş Hekimi)</option>
+                <option value="Dr. Emre Demir">Dr. Emre Demir (Kardiyoloji)</option>
               </select>
             </div>
 

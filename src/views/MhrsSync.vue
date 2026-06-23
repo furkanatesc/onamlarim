@@ -119,7 +119,7 @@
                 {{ app.doctor }}
               </td>
               <td class="px-6 py-4 text-slate-500 font-medium">
-                {{ app.department === 'Gyn Oncology' ? 'Jinekolojik Onkoloji' : app.department }}
+                {{ app.department === 'Gyn Oncology' ? 'Jinekolojik Onkoloji' : app.department === 'Dental Health' ? 'Ağız ve Diş Sağlığı' : app.department === 'Cardiology' ? 'Kardiyoloji' : app.department }}
               </td>
               <td class="px-6 py-4">
                 <span class="inline-flex items-center gap-1.2 px-2 py-0.5 rounded-full text-[9px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-100/30">
@@ -142,10 +142,10 @@ import { useMhrsSync } from '../composables/useMhrsSync'
 const { isSyncing, lastSyncTime, syncStatus, triggerSync } = useMhrsSync()
 
 const appointments = ref([
-  { time: '09:00', name: 'Ahmet Yılmaz', tc: '234******92', doctor: 'Dr. Müge Ateş Tıkız', department: 'Gyn Oncology' },
-  { time: '10:15', name: 'Merve Demir', tc: '109******84', doctor: 'Dr. Müge Ateş Tıkız', department: 'Gyn Oncology' },
+  { time: '09:00', name: 'Ahmet Yılmaz', tc: '234******92', doctor: 'Dr. Selin Kaya', department: 'Dental Health' },
+  { time: '10:15', name: 'Merve Demir', tc: '109******84', doctor: 'Dr. Emre Demir', department: 'Cardiology' },
   { time: '11:00', name: 'Caner Özkan', tc: '482******92', doctor: 'Dr. Müge Ateş Tıkız', department: 'Gyn Oncology' },
-  { time: '13:30', name: 'Elif Kaya', tc: '592******91', doctor: 'Dr. Müge Ateş Tıkız', department: 'Gyn Oncology' },
-  { time: '14:45', name: 'Zeynep Çelik', tc: '184******85', doctor: 'Dr. Müge Ateş Tıkız', department: 'Gyn Oncology' }
+  { time: '13:30', name: 'Elif Kaya', tc: '592******91', doctor: 'Dr. Selin Kaya', department: 'Dental Health' },
+  { time: '14:45', name: 'Zeynep Çelik', tc: '184******85', doctor: 'Dr. Emre Demir', department: 'Cardiology' }
 ])
 </script>

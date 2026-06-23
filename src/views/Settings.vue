@@ -101,7 +101,7 @@ import { ref } from 'vue'
 const saving = ref(false)
 
 const settings = ref({
-  clinicName: 'Onamlarım Jinekolojik Onkoloji Merkezi',
+  clinicName: 'Onamlarım Poliklinikleri',
   address: 'Konyaaltı, Antalya',
   appointmentDuration: '20',
   syncInterval: '60',
