@@ -22,10 +22,10 @@ const props = defineProps({
 // Ortak blur (bulanıklık) ve boyut özellikleri
 const baseBlobClass = 'absolute rounded-full mix-blend-multiply filter blur-[120px] w-[500px] h-[500px] opacity-70'
 
-const bgColor = computed(() => props.variant === 'vibrant' ? 'bg-slate-50' : 'bg-slate-50/50')
+const bgColor = computed(() => props.variant === 'vibrant' ? 'bg-white' : 'bg-white')
 
-// Varyanta göre renk geçişleri
-const color1 = computed(() => props.variant === 'vibrant' ? 'bg-blue-300' : 'bg-blue-100/40')
-const color2 = computed(() => props.variant === 'vibrant' ? 'bg-indigo-300' : 'bg-slate-200/40')
-const color3 = computed(() => props.variant === 'vibrant' ? 'bg-cyan-200' : 'bg-blue-50/40')
+// Varyanta göre renk geçişleri — emboss-paper dili: çok hafif teal + kâğıt tonları
+const color1 = computed(() => props.variant === 'vibrant' ? 'bg-[#088496]/20' : 'bg-[#088496]/8')
+const color2 = computed(() => props.variant === 'vibrant' ? 'bg-slate-200/50' : 'bg-slate-200/30')
+const color3 = computed(() => props.variant === 'vibrant' ? 'bg-[#088496]/12' : 'bg-[#088496]/5')
 </script>

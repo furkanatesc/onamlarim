@@ -8,7 +8,7 @@
       </div>
       <button 
         @click="isNewMaterialOpen = true"
-        class="px-4 py-2 bg-blue-600 text-white rounded-xl text-xs font-semibold hover:bg-blue-700 shadow-md shadow-blue-600/10 transition-all flex items-center gap-1.5 cursor-pointer ml-auto sm:ml-0"
+        class="px-4 py-2 bg-[#088496] text-white rounded-xl text-xs font-semibold hover:bg-[#066b7a] shadow-md shadow-[#088496]/20 transition-all flex items-center gap-1.5 cursor-pointer ml-auto sm:ml-0"
       >
         <Plus class="w-4 h-4" /> Yeni Malzeme Ekle
       </button>
@@ -21,7 +21,7 @@
           <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Takip Edilen Malzeme</span>
           <p class="text-2xl font-extrabold text-slate-800 mt-1">{{ inventoryStore.items.length }}</p>
         </div>
-        <div class="w-9 h-9 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center">
+        <div class="w-9 h-9 rounded-lg emboss-inset bg-white text-[#088496] flex items-center justify-center">
           <Layers class="w-5 h-5" />
         </div>
       </div>
@@ -57,7 +57,7 @@
           v-model="searchQuery"
           type="search"
           placeholder="Malzeme adı veya kategorisine göre ara..."
-          class="block w-full pl-9 pr-4 py-2 bg-slate-50/50 border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300"
+          class="block w-full pl-9 pr-4 py-2 bg-slate-50/50 border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:bg-white focus:border-[#088496] focus:ring-4 focus:ring-[#088496]/15 transition-all duration-300"
         />
       </div>
     </div>
@@ -165,7 +165,7 @@
                 required
                 type="text" 
                 placeholder="Örn: Diş Dolgu Kompoziti" 
-                class="w-full px-3.5 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300"
+                class="w-full px-3.5 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-[#088496] focus:ring-4 focus:ring-[#088496]/15 transition-all duration-300"
               />
             </div>
 
@@ -174,7 +174,7 @@
                 <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Kategori</label>
                 <select 
                   v-model="materialForm.category" 
-                  class="w-full px-3.5 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300"
+                  class="w-full px-3.5 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-[#088496] focus:ring-4 focus:ring-[#088496]/15 transition-all duration-300"
                 >
                   <option value="Surgical">Cerrahi</option>
                   <option value="Restorative">Restoratif</option>
@@ -191,7 +191,7 @@
                   required
                   type="text" 
                   placeholder="Örn: adet, kutu, tüp" 
-                  class="w-full px-3.5 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300"
+                  class="w-full px-3.5 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-[#088496] focus:ring-4 focus:ring-[#088496]/15 transition-all duration-300"
                 />
               </div>
             </div>
@@ -204,7 +204,7 @@
                   required
                   min="0"
                   type="number" 
-                  class="w-full px-3.5 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300"
+                  class="w-full px-3.5 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-[#088496] focus:ring-4 focus:ring-[#088496]/15 transition-all duration-300"
                 />
               </div>
 
@@ -215,7 +215,7 @@
                   required
                   min="0"
                   type="number" 
-                  class="w-full px-3.5 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300"
+                  class="w-full px-3.5 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-[#088496] focus:ring-4 focus:ring-[#088496]/15 transition-all duration-300"
                 />
               </div>
             </div>
@@ -230,7 +230,7 @@
               </button>
               <button 
                 type="submit"
-                class="px-4 py-2 bg-blue-600 text-white rounded-xl text-xs font-semibold hover:bg-blue-700 shadow-md shadow-blue-600/10 transition-all"
+                class="px-4 py-2 bg-[#088496] text-white rounded-xl text-xs font-semibold hover:bg-[#066b7a] shadow-md shadow-[#088496]/20 transition-all"
               >
                 Malzemeyi Kaydet
               </button>

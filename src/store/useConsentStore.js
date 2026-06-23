@@ -8,7 +8,7 @@ export const useConsentStore = defineStore('consent', () => {
       patientId: 'P-101',
       patientName: 'Ahmet Yılmaz',
       procedure: 'Dental Implant Surgery',
-      doctor: 'Dr. Caner Özkan',
+      doctor: 'Dr. Müge Ateş Tıkız',
       status: 'pending',
       date: '2026-06-11',
       signature: null
@@ -28,7 +28,7 @@ export const useConsentStore = defineStore('consent', () => {
       patientId: 'P-104',
       patientName: 'Elif Kaya',
       procedure: 'Composite Dental Veneer',
-      doctor: 'Dr. Caner Özkan',
+      doctor: 'Dr. Müge Ateş Tıkız',
       status: 'pending',
       date: '2026-06-11',
       signature: null

@@ -56,7 +56,7 @@ const props = defineProps({
   // Same-origin file in /public. Swap to a CDN URL later if desired.
   src: { type: String, default: '/hero-architecture.mp4' },
   // Scroll distance (in viewport heights) over which the building fully defines.
-  scrollSpan: { type: Number, default: 1.2 },
+  scrollSpan: { type: Number, default: 1.0 },
 })
 
 const rootRef = ref(null)

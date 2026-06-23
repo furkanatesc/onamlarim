@@ -20,7 +20,7 @@
         </div>
 
         <!-- Document Details -->
-        <div class="bg-blue-50/40 px-6 py-3 border-b border-slate-100 flex flex-col gap-1">
+        <div class="bg-[#088496]/8 px-6 py-3 border-b border-slate-100 flex flex-col gap-1">
           <div class="flex justify-between text-[11px]">
             <span class="text-slate-500">Hasta:</span>
             <span class="font-bold text-slate-700">{{ patientName }}</span>
@@ -35,7 +35,7 @@
         <div class="p-6 flex flex-col gap-4 items-center">
           <div class="w-full flex justify-between items-center text-xs">
             <span class="font-semibold text-slate-600 flex items-center gap-1.5">
-              <PenTool class="w-3.5 h-3.5 text-blue-600" /> İmza Çizim Alanı
+              <PenTool class="w-3.5 h-3.5 text-[#088496]" /> İmza Çizim Alanı
             </span>
             <span class="text-[10px] text-slate-400">Klinik kalemi veya fareniz ile çizin</span>
           </div>
@@ -59,7 +59,7 @@
           <!-- Quick Helpers -->
           <div class="flex justify-between w-full text-[10px] text-slate-400">
             <span>İmzalayarak onam maddelerini kabul etmiş olursunuz.</span>
-            <button @click="clearSignature" class="text-blue-600 hover:text-blue-700 font-bold hover:underline cursor-pointer">
+            <button @click="clearSignature" class="text-[#088496] hover:text-[#066b7a] font-bold hover:underline cursor-pointer">
               Temizle
             </button>
           </div>
@@ -76,7 +76,7 @@
           <button 
             @click="saveSignature" 
             :disabled="isCanvasEmpty"
-            class="px-4 py-2 bg-blue-600 text-white rounded-xl text-xs font-semibold hover:bg-blue-700 shadow-md shadow-blue-600/10 disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-200 cursor-pointer"
+            class="px-4 py-2 bg-[#088496] text-white rounded-xl text-xs font-semibold hover:bg-[#066b7a] shadow-md shadow-[#088496]/20 disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-200 cursor-pointer"
           >
             İmzayı Kaydet
           </button>

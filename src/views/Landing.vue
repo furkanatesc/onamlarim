@@ -5,13 +5,11 @@
 
     <!-- Navigation (glass on paper) -->
     <header
-      class="fixed top-0 inset-x-0 z-50 h-16 px-6 lg:px-16 flex items-center justify-between bg-white/45 backdrop-blur-xl border-b border-white/60"
+      class="fixed top-0 inset-x-0 z-50 h-16 px-6 lg:px-16 flex items-center justify-between bg-white/10 backdrop-blur-md border-b border-white/20"
     >
       <div class="flex items-center gap-3">
-        <div class="emboss-raised flex items-center justify-center w-8 h-8 rounded-lg bg-white text-[#088496]">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="w-4 h-4">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-3-3v6m-9-3h18" />
-          </svg>
+        <div class="emboss-raised flex items-center justify-center w-11 h-11 rounded-xl bg-white text-[#088496]">
+          <BrandMark class="w-9 h-9" />
         </div>
         <div>
           <span class="text-sm font-bold text-slate-900 tracking-tight">Onamlarım</span>
@@ -77,7 +75,7 @@
     </section>
 
     <!-- CONTENT (liquid-glass plane that scrolls over the fixed backdrop) -->
-    <div class="relative z-10 -mt-6 rounded-t-[40px] border-t border-white/70 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.03)_0px,rgba(255,255,255,0.08)_640px,rgba(255,255,255,0.72)_1040px)] backdrop-blur-2xl backdrop-saturate-150 shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_-16px_50px_rgba(15,23,42,0.06)]">
+    <div class="relative z-10 -mt-6 rounded-t-[40px] border-t border-white/70 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.01)_0px,rgba(255,255,255,0.03)_780px,rgba(255,255,255,0.5)_980px,rgba(255,255,255,0.85)_1120px)] backdrop-blur-xl backdrop-saturate-150 shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_-16px_50px_rgba(15,23,42,0.06)]">
       <!-- TRUST BAR -->
       <div class="max-w-5xl mx-auto px-6 pt-16">
         <p class="text-center text-[10px] uppercase tracking-widest text-slate-400 mb-4">
@@ -159,7 +157,8 @@
       </section>
 
       <!-- FOOTER -->
-      <footer class="mt-28 border-t border-slate-200 py-10 text-center">
+      <footer class="mt-28 py-12 text-center">
+        <div class="mx-auto mb-8 h-px w-40 bg-gradient-to-r from-transparent via-slate-300/50 to-transparent"></div>
         <p class="text-[10px] uppercase tracking-widest text-slate-400 font-semibold">
           © 2026 Onamlarım Medical ERP — Tüm hakları saklıdır.
         </p>
@@ -169,8 +168,13 @@
 </template>
 
 <script setup>
-import { ArrowRight, Play, ChevronDown, FileSignature, RefreshCw, Package, Users, ShieldCheck, Lock, Activity } from '@lucide/vue'
+import { ArrowRight, Play, ChevronDown, FileSignature, RefreshCw, ShieldCheck, Lock, Activity } from '@lucide/vue'
 import ScrollArchitecture from '../components/ScrollArchitecture.vue'
+import BrandMark from '../components/icons/BrandMark.vue'
+import IconConsent from '../components/icons/IconConsent.vue'
+import IconMhrs from '../components/icons/IconMhrs.vue'
+import IconStock from '../components/icons/IconStock.vue'
+import IconCrm from '../components/icons/IconCrm.vue'
 
 const navLinks = ['Platform', 'Özellikler', 'MHRS', 'Fiyatlandırma']
 
@@ -183,10 +187,10 @@ const trust = [
 ]
 
 const features = [
-  { icon: FileSignature, title: 'Dijital İmza & Onam', desc: 'Tablet ve mobilde parmak veya kalemle yasal, zaman damgalı dijital imza toplayın.' },
-  { icon: RefreshCw, title: 'MHRS Randevu Eşitleme', desc: 'Merkezi Hekim Randevu Sistemi ile randevu, hekim sırası ve hasta listelerini anlık eşitleyin.' },
-  { icon: Package, title: 'Klinik Stok Takibi', desc: 'Kritik ameliyat malzemelerini ve implantları barkodla takip edin, kritik stok alarmı alın.' },
-  { icon: Users, title: 'Akıllı Hasta CRM', desc: 'Tıbbi dosya, onam geçmişi ve iletişim kaydını tek panelden yönetin.' },
+  { icon: IconConsent, title: 'Dijital İmza & Onam', desc: 'Tablet ve mobilde parmak veya kalemle yasal, zaman damgalı dijital imza toplayın.' },
+  { icon: IconMhrs, title: 'MHRS Randevu Eşitleme', desc: 'Merkezi Hekim Randevu Sistemi ile randevu, hekim sırası ve hasta listelerini anlık eşitleyin.' },
+  { icon: IconStock, title: 'Klinik Stok Takibi', desc: 'Kritik ameliyat malzemelerini ve implantları barkodla takip edin, kritik stok alarmı alın.' },
+  { icon: IconCrm, title: 'Akıllı Hasta CRM', desc: 'Tıbbi dosya, onam geçmişi ve iletişim kaydını tek panelden yönetin.' },
 ]
 
 const steps = [
