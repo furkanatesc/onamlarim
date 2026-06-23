@@ -1,7 +1,16 @@
 <template>
-  <header class="h-16 border-b border-white/60 bg-white/55 backdrop-blur-xl sticky top-0 z-10 px-8 flex items-center justify-between">
+  <header class="h-16 border-b border-white/60 bg-white/55 backdrop-blur-xl sticky top-0 z-10 px-4 sm:px-8 flex items-center justify-between gap-3">
+    <!-- Mobil menü (hamburger) -->
+    <button
+      @click="toggle"
+      class="lg:hidden flex items-center justify-center w-9 h-9 rounded-xl emboss-inset bg-white text-slate-600 shrink-0"
+      aria-label="Menüyü aç"
+    >
+      <Menu class="w-5 h-5" />
+    </button>
+
     <!-- Search Bar with keyboard shortcut -->
-    <div class="relative w-96">
+    <div class="relative hidden md:block w-full md:w-72 lg:w-96">
       <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
         <Search class="h-4 w-4 text-slate-400" />
       </div>
@@ -20,11 +29,11 @@
     </div>
 
     <!-- Actions & Profile Info -->
-    <div class="flex items-center gap-6">
+    <div class="flex items-center gap-3 sm:gap-6 ml-auto">
       <!-- MHRS Sync Badge -->
       <div 
         @click="triggerSync"
-        class="flex items-center gap-2 px-3 py-1.5 rounded-full emboss-inset bg-white/60 hover:bg-white/80 cursor-pointer select-none transition-all duration-300"
+        class="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-full emboss-inset bg-white/60 hover:bg-white/80 cursor-pointer select-none transition-all duration-300"
         title="MHRS randevularını eşitle"
       >
         <span class="relative flex h-2 w-2">
@@ -116,18 +125,21 @@
 import { ref, onMounted, computed, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { 
-  Search, 
-  Bell, 
-  ChevronDown, 
-  User, 
-  Settings, 
-  LogOut, 
-  RefreshCw 
+  Search,
+  Bell,
+  ChevronDown,
+  User,
+  Settings,
+  LogOut,
+  RefreshCw,
+  Menu
 } from '@lucide/vue'
 import { useMagicKeys, onClickOutside } from '@vueuse/core'
 import { useMhrsSync } from '../composables/useMhrsSync'
 import { usePatientStore } from '../store/usePatientStore'
+import { useSidebar } from '../composables/useSidebar'
 
+const { toggle } = useSidebar()
 const router = useRouter()
 const patientStore = usePatientStore()
 const { isSyncing, lastSyncTime, syncStatus, triggerSync } = useMhrsSync()

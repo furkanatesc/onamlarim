@@ -3,16 +3,23 @@
     <!-- Reusable Subtle Mesh Gradient Backdrop -->
     <MeshGradient variant="subtle" />
 
-    <!-- Glassmorphic Sidebar (Fixed inside) -->
-    <Sidebar class="z-20" />
+    <!-- Glassmorphic Sidebar (mobilde drawer) -->
+    <Sidebar />
+
+    <!-- Mobil backdrop -->
+    <div
+      v-if="isOpen"
+      @click="close"
+      class="fixed inset-0 z-40 bg-slate-900/30 backdrop-blur-sm lg:hidden"
+    ></div>
 
     <!-- Main Content Area -->
-    <div class="flex-1 pl-64 flex flex-col min-w-0 z-10">
+    <div class="flex-1 lg:pl-64 flex flex-col min-w-0 z-10">
       <!-- Sticky Top Header -->
       <Header class="z-10" />
 
       <!-- Page Content Wrapper -->
-      <main class="flex-1 p-8 overflow-y-auto">
+      <main class="flex-1 p-4 sm:p-6 lg:p-8 overflow-y-auto">
         <router-view v-slot="{ Component }">
           <transition
             name="fade"
@@ -30,10 +37,19 @@
 </template>
 
 <script setup>
+import { watch } from 'vue'
+import { useRoute } from 'vue-router'
 import MeshGradient from '../components/MeshGradient.vue'
 import Sidebar from './Sidebar.vue'
 import Header from './Header.vue'
 import AssistantWidget from '../components/assistant/AssistantWidget.vue'
+import { useSidebar } from '../composables/useSidebar'
+
+const route = useRoute()
+const { isOpen, close } = useSidebar()
+
+// Rota değişince mobil drawer'ı kapat
+watch(() => route.path, () => close())
 </script>
 
 <style>

@@ -1,5 +1,15 @@
 <template>
-  <aside class="w-64 h-screen fixed left-0 top-0 z-20 flex flex-col justify-between backdrop-blur-md bg-white/75 border-r border-slate-200/60 p-6 select-none transition-all duration-300">
+  <aside
+    class="w-64 h-screen fixed left-0 top-0 z-50 flex flex-col justify-between backdrop-blur-md bg-white/90 lg:bg-white/75 border-r border-slate-200/60 p-6 select-none transition-transform duration-300 lg:translate-x-0"
+    :class="isOpen ? 'translate-x-0' : '-translate-x-full'"
+  >
+    <button
+      @click="close"
+      class="lg:hidden absolute top-5 right-4 p-1.5 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100/60 transition-colors"
+      aria-label="Menüyü kapat"
+    >
+      <X class="w-5 h-5" />
+    </button>
     <div class="flex flex-col gap-8">
       <!-- Brand Logo -->
       <div class="flex items-center gap-3 px-2">
@@ -58,12 +68,15 @@
 </template>
 
 <script setup>
-import { LayoutDashboard } from '@lucide/vue'
+import { LayoutDashboard, X } from '@lucide/vue'
 import BrandMark from '../components/icons/BrandMark.vue'
 import IconConsent from '../components/icons/IconConsent.vue'
 import IconCrm from '../components/icons/IconCrm.vue'
 import IconStock from '../components/icons/IconStock.vue'
 import IconMhrs from '../components/icons/IconMhrs.vue'
+import { useSidebar } from '../composables/useSidebar'
+
+const { isOpen, close } = useSidebar()
 
 const menuItems = [
   { name: 'Kontrol Paneli', path: '/dashboard/overview', icon: LayoutDashboard },
