@@ -8,7 +8,7 @@
       </div>
       <button 
         @click="isNewMaterialOpen = true"
-        class="px-4 py-2 bg-blue-600 text-white rounded-xl text-xs font-semibold hover:bg-blue-700 shadow-md shadow-blue-600/10 transition-all flex items-center gap-1.5 cursor-pointer ml-auto sm:ml-0"
+        class="px-4 py-2 bg-[#088496] text-white rounded-xl text-xs font-semibold hover:bg-[#066b7a] shadow-md shadow-[#088496]/20 transition-all flex items-center gap-1.5 cursor-pointer ml-auto sm:ml-0"
       >
         <Plus class="w-4 h-4" /> Yeni Malzeme Ekle
       </button>
@@ -16,17 +16,17 @@
 
     <!-- Quick Stat Alerts (Staggered item 2) -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 animate-fade-in-up animation-delay-100">
-      <div class="p-5 bg-white border border-slate-200/50 rounded-2xl shadow-xs flex items-center justify-between">
+      <div class="p-5 bg-white emboss-raised rounded-2xl flex items-center justify-between">
         <div>
           <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Takip Edilen Malzeme</span>
           <p class="text-2xl font-extrabold text-slate-800 mt-1">{{ inventoryStore.items.length }}</p>
         </div>
-        <div class="w-9 h-9 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center">
+        <div class="w-9 h-9 rounded-lg emboss-inset bg-white text-[#088496] flex items-center justify-center">
           <Layers class="w-5 h-5" />
         </div>
       </div>
       
-      <div class="p-5 bg-white border border-slate-200/50 rounded-2xl shadow-xs flex items-center justify-between">
+      <div class="p-5 bg-white emboss-raised rounded-2xl flex items-center justify-between">
         <div>
           <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Kritik Stok Uyarıları</span>
           <p class="text-2xl font-extrabold text-rose-600 mt-1">{{ inventoryStore.lowStockItems.length }}</p>
@@ -36,7 +36,7 @@
         </div>
       </div>
 
-      <div class="p-5 bg-white border border-slate-200/50 rounded-2xl shadow-xs flex items-center justify-between">
+      <div class="p-5 bg-white emboss-raised rounded-2xl flex items-center justify-between">
         <div>
           <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Bu Hafta Yenilenen</span>
           <p class="text-2xl font-extrabold text-emerald-600 mt-1">4 Malzeme</p>
@@ -48,7 +48,7 @@
     </div>
 
     <!-- Search Controls -->
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 bg-white border border-slate-200/50 rounded-2xl shadow-xs animate-fade-in-up animation-delay-200">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 bg-white emboss-raised rounded-2xl animate-fade-in-up animation-delay-200">
       <div class="relative flex-1 max-w-md">
         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
           <Search class="h-4 w-4 text-slate-400" />
@@ -57,13 +57,13 @@
           v-model="searchQuery"
           type="search"
           placeholder="Malzeme adı veya kategorisine göre ara..."
-          class="block w-full pl-9 pr-4 py-2 bg-slate-50/50 border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300"
+          class="block w-full pl-9 pr-4 py-2 bg-slate-50/50 border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:bg-white focus:border-[#088496] focus:ring-4 focus:ring-[#088496]/15 transition-all duration-300"
         />
       </div>
     </div>
 
     <!-- Materials Table -->
-    <div class="bg-white border border-slate-200/50 rounded-2xl shadow-xs overflow-hidden animate-fade-in-up animation-delay-300">
+    <div class="bg-white emboss-raised rounded-2xl overflow-hidden animate-fade-in-up animation-delay-300">
       <div class="overflow-x-auto">
         <table class="w-full text-left border-collapse">
           <thead>
@@ -164,8 +164,8 @@
                 v-model="materialForm.name" 
                 required
                 type="text" 
-                placeholder="Örn: Diş Dolgu Kompoziti" 
-                class="w-full px-3.5 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300"
+                placeholder="Örn: Cerrahi Sütür"
+                class="w-full px-3.5 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-[#088496] focus:ring-4 focus:ring-[#088496]/15 transition-all duration-300"
               />
             </div>
 
@@ -174,7 +174,7 @@
                 <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Kategori</label>
                 <select 
                   v-model="materialForm.category" 
-                  class="w-full px-3.5 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300"
+                  class="w-full px-3.5 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-[#088496] focus:ring-4 focus:ring-[#088496]/15 transition-all duration-300"
                 >
                   <option value="Surgical">Cerrahi</option>
                   <option value="Restorative">Restoratif</option>
@@ -191,7 +191,7 @@
                   required
                   type="text" 
                   placeholder="Örn: adet, kutu, tüp" 
-                  class="w-full px-3.5 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300"
+                  class="w-full px-3.5 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-[#088496] focus:ring-4 focus:ring-[#088496]/15 transition-all duration-300"
                 />
               </div>
             </div>
@@ -204,7 +204,7 @@
                   required
                   min="0"
                   type="number" 
-                  class="w-full px-3.5 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300"
+                  class="w-full px-3.5 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-[#088496] focus:ring-4 focus:ring-[#088496]/15 transition-all duration-300"
                 />
               </div>
 
@@ -215,7 +215,7 @@
                   required
                   min="0"
                   type="number" 
-                  class="w-full px-3.5 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300"
+                  class="w-full px-3.5 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-[#088496] focus:ring-4 focus:ring-[#088496]/15 transition-all duration-300"
                 />
               </div>
             </div>
@@ -230,7 +230,7 @@
               </button>
               <button 
                 type="submit"
-                class="px-4 py-2 bg-blue-600 text-white rounded-xl text-xs font-semibold hover:bg-blue-700 shadow-md shadow-blue-600/10 transition-all"
+                class="px-4 py-2 bg-[#088496] text-white rounded-xl text-xs font-semibold hover:bg-[#066b7a] shadow-md shadow-[#088496]/20 transition-all"
               >
                 Malzemeyi Kaydet
               </button>

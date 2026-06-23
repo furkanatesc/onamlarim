@@ -9,7 +9,7 @@
         <!-- Modal Header -->
         <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
           <div class="flex items-center gap-2.5">
-            <div class="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600">
+            <div class="w-8 h-8 rounded-lg emboss-inset bg-white flex items-center justify-center text-[#088496]">
               <UserPlus v-if="type === 'patient'" class="w-4 h-4" />
               <FilePlus v-else-if="type === 'consent'" class="w-4 h-4" />
               <Maximize v-else-if="type === 'material'" class="w-4 h-4" />
@@ -37,7 +37,7 @@
                 required
                 type="text" 
                 placeholder="Örn: Ahmet Yılmaz" 
-                class="w-full px-3.5 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300"
+                class="w-full px-3.5 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-[#088496] focus:ring-4 focus:ring-[#088496]/15 transition-all duration-300"
               />
             </div>
             
@@ -50,14 +50,14 @@
                   maxlength="11"
                   type="text" 
                   placeholder="Örn: 10293847562" 
-                  class="w-full px-3.5 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300"
+                  class="w-full px-3.5 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-[#088496] focus:ring-4 focus:ring-[#088496]/15 transition-all duration-300"
                 />
               </div>
               <div class="space-y-1">
                 <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Kan Grubu</label>
                 <select 
                   v-model="patientForm.bloodType" 
-                  class="w-full px-3.5 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300"
+                  class="w-full px-3.5 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-[#088496] focus:ring-4 focus:ring-[#088496]/15 transition-all duration-300"
                 >
                   <option value="A Rh+">A Rh+</option>
                   <option value="A Rh-">A Rh-</option>
@@ -78,7 +78,7 @@
                 required
                 type="tel" 
                 placeholder="+90 5XX XXX XX XX" 
-                class="w-full px-3.5 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300"
+                class="w-full px-3.5 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-[#088496] focus:ring-4 focus:ring-[#088496]/15 transition-all duration-300"
               />
             </div>
 
@@ -89,7 +89,7 @@
                 required
                 type="email" 
                 placeholder="isim@ornek.com" 
-                class="w-full px-3.5 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300"
+                class="w-full px-3.5 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-[#088496] focus:ring-4 focus:ring-[#088496]/15 transition-all duration-300"
               />
             </div>
 
@@ -104,7 +104,7 @@
               </button>
               <button 
                 type="submit"
-                class="px-4 py-2 bg-blue-600 text-white rounded-xl text-xs font-semibold hover:bg-blue-700 shadow-md shadow-blue-600/10 transition-all"
+                class="px-4 py-2 bg-[#088496] text-white rounded-xl text-xs font-semibold hover:bg-[#066b7a] shadow-md shadow-[#088496]/20 transition-all"
               >
                 Hastayı Kaydet
               </button>
@@ -118,7 +118,7 @@
               <select 
                 v-model="consentForm.patientIndex" 
                 required
-                class="w-full px-3.5 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300"
+                class="w-full px-3.5 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-[#088496] focus:ring-4 focus:ring-[#088496]/15 transition-all duration-300"
               >
                 <option value="" disabled selected>CRM sisteminden hasta seçin...</option>
                 <option 
@@ -137,8 +137,8 @@
                 v-model="consentForm.procedure" 
                 required
                 type="text" 
-                placeholder="Örn: Dental İmplant Ameliyatı, Kanal Tedavisi" 
-                class="w-full px-3.5 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300"
+                placeholder="Örn: Diş İmplantı, Koroner Anjiyografi, Histeroskopi"
+                class="w-full px-3.5 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-[#088496] focus:ring-4 focus:ring-[#088496]/15 transition-all duration-300"
               />
             </div>
 
@@ -146,16 +146,17 @@
               <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Sorumlu Hekim</label>
               <select 
                 v-model="consentForm.doctor" 
-                class="w-full px-3.5 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300"
+                class="w-full px-3.5 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-[#088496] focus:ring-4 focus:ring-[#088496]/15 transition-all duration-300"
               >
-                <option value="Dr. Caner Özkan">Dr. Caner Özkan (Kardiyoloji)</option>
+                <option value="Dr. Müge Ateş Tıkız">Dr. Müge Ateş Tıkız (Jinekolojik Onkoloji)</option>
                 <option value="Dr. Selin Kaya">Dr. Selin Kaya (Diş Hekimi)</option>
+                <option value="Dr. Emre Demir">Dr. Emre Demir (Kardiyoloji)</option>
               </select>
             </div>
 
-            <div class="bg-blue-50/50 rounded-xl p-3 border border-blue-100 flex items-start gap-2.5">
-              <Info class="w-4 h-4 text-blue-500 shrink-0 mt-0.5" />
-              <p class="text-[10px] text-blue-700 leading-normal font-medium">
+            <div class="bg-[#088496]/8 rounded-xl p-3 border border-[#088496]/15 flex items-start gap-2.5">
+              <Info class="w-4 h-4 text-[#088496] shrink-0 mt-0.5" />
+              <p class="text-[10px] text-[#066b7a] leading-normal font-medium">
                 Bu dijital onam belgesi oluşturulduğunda Kontrol Panelinde <strong>İmza Bekliyor</strong> olarak görünecektir. Hasta formu hemen klinik tableti üzerinden imzalayabilir.
               </p>
             </div>
@@ -171,7 +172,7 @@
               </button>
               <button 
                 type="submit"
-                class="px-4 py-2 bg-blue-600 text-white rounded-xl text-xs font-semibold hover:bg-blue-700 shadow-md shadow-blue-600/10 transition-all"
+                class="px-4 py-2 bg-[#088496] text-white rounded-xl text-xs font-semibold hover:bg-[#066b7a] shadow-md shadow-[#088496]/20 transition-all"
               >
                 Onam Belgesi Oluştur
               </button>
@@ -192,7 +193,7 @@
                 </div>
                 <button 
                   @click="startScanSimulation"
-                  class="mt-1 px-4 py-1.5 bg-blue-600 text-white font-semibold text-[10px] rounded-lg hover:bg-blue-700 transition-colors shadow-sm"
+                  class="mt-1 px-4 py-1.5 bg-[#088496] text-white font-semibold text-[10px] rounded-lg hover:bg-[#066b7a] transition-colors shadow-sm"
                 >
                   Barkod Kamerasını Başlat
                 </button>
@@ -225,7 +226,7 @@
             <div v-if="scanningState === 'success'" class="border border-slate-100 rounded-2xl p-4 bg-slate-50/50 flex flex-col gap-3.5 animate-fade-in-up">
               <div class="flex justify-between items-start">
                 <div>
-                  <span class="text-[9px] font-bold text-blue-600 uppercase tracking-widest bg-blue-50 px-2 py-0.5 rounded border border-blue-100">
+                  <span class="text-[9px] font-bold text-[#088496] uppercase tracking-widest bg-[#088496]/10 px-2 py-0.5 rounded border border-[#088496]/20">
                     {{ selectedScannedMaterial.category === 'Surgical' ? 'Cerrahi' : selectedScannedMaterial.category === 'Restorative' ? 'Restoratif' : selectedScannedMaterial.category === 'Consumables' ? 'Sarf' : selectedScannedMaterial.category }}
                   </span>
                   <h4 class="text-xs font-bold text-slate-800 mt-1.5">{{ selectedScannedMaterial.name }}</h4>
@@ -378,7 +379,7 @@ function submitPatient() {
 const consentForm = ref({
   patientIndex: '',
   procedure: '',
-  doctor: 'Dr. Caner Özkan'
+  doctor: 'Dr. Müge Ateş Tıkız'
 })
 
 function submitConsent() {
@@ -394,7 +395,7 @@ function submitConsent() {
     consentForm.value = {
       patientIndex: '',
       procedure: '',
-      doctor: 'Dr. Caner Özkan'
+      doctor: 'Dr. Müge Ateş Tıkız'
     }
     closeModal()
   }

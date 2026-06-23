@@ -8,14 +8,14 @@
       </div>
       <button 
         @click="isRegisterOpen = true"
-        class="px-4 py-2 bg-blue-600 text-white rounded-xl text-xs font-semibold hover:bg-blue-700 shadow-md shadow-blue-600/10 transition-all flex items-center gap-1.5 cursor-pointer ml-auto sm:ml-0"
+        class="px-4 py-2 bg-[#088496] text-white rounded-xl text-xs font-semibold hover:bg-[#066b7a] shadow-md shadow-[#088496]/20 transition-all flex items-center gap-1.5 cursor-pointer ml-auto sm:ml-0"
       >
         <UserPlus class="w-4 h-4" /> Hasta Kaydet
       </button>
     </div>
 
     <!-- Search Box and List Info -->
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 bg-white border border-slate-200/50 rounded-2xl shadow-xs animate-fade-in-up animation-delay-100">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 bg-white emboss-raised rounded-2xl animate-fade-in-up animation-delay-100">
       <div class="relative flex-1 max-w-md">
         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
           <Search class="h-4 w-4 text-slate-400" />
@@ -25,7 +25,7 @@
           v-model="patientStore.searchQuery"
           type="search"
           placeholder="İsim, TC No veya telefon ile ara..."
-          class="block w-full pl-9 pr-4 py-2 bg-slate-50/50 border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300"
+          class="block w-full pl-9 pr-4 py-2 bg-slate-50/50 border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:bg-white focus:border-[#088496] focus:ring-4 focus:ring-[#088496]/15 transition-all duration-300"
         />
       </div>
 
@@ -35,7 +35,7 @@
     </div>
 
     <!-- CRM Patient Grid / Table -->
-    <div class="bg-white border border-slate-200/50 rounded-2xl shadow-xs overflow-hidden animate-fade-in-up animation-delay-200">
+    <div class="bg-white emboss-raised rounded-2xl overflow-hidden animate-fade-in-up animation-delay-200">
       <div class="overflow-x-auto">
         <table class="w-full text-left border-collapse">
           <thead>
@@ -62,7 +62,7 @@
             >
               <td class="px-6 py-4">
                 <div class="flex items-center gap-3">
-                  <div class="w-8.5 h-8.5 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-xs">
+                  <div class="w-8.5 h-8.5 rounded-xl emboss-inset bg-white text-[#088496] flex items-center justify-center font-bold text-xs">
                     {{ patient.name.split(' ').map(n=>n.charAt(0)).join('') }}
                   </div>
                   <div>
@@ -93,11 +93,11 @@
                     patient.status === 'Active' 
                       ? 'bg-emerald-50 text-emerald-700 border-emerald-100/30' 
                       : patient.status === 'Completed'
-                      ? 'bg-blue-50 text-blue-700 border-blue-100/30'
+                      ? 'bg-[#088496]/10 text-[#088496] border-[#088496]/20'
                       : 'bg-slate-50 text-slate-600 border-slate-200/40'
                   ]"
                 >
-                  <span class="w-1.2 h-1.2 rounded-full" :class="patient.status === 'Active' ? 'bg-emerald-500' : patient.status === 'Completed' ? 'bg-blue-500' : 'bg-slate-400'"></span>
+                  <span class="w-1.2 h-1.2 rounded-full" :class="patient.status === 'Active' ? 'bg-emerald-500' : patient.status === 'Completed' ? 'bg-[#088496]' : 'bg-slate-400'"></span>
                   {{ patient.status === 'Active' ? 'Aktif' : patient.status === 'Completed' ? 'Tamamlandı' : 'Pasif' }}
                 </span>
               </td>
@@ -130,7 +130,7 @@
           <div class="p-6 overflow-y-auto max-h-[60vh] space-y-6">
             <!-- Patient Mini Summary -->
             <div class="flex items-center gap-4 bg-slate-50/50 p-4 border border-slate-100 rounded-2xl">
-              <div class="w-12 h-12 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold text-base shadow-md shadow-blue-500/10">
+              <div class="w-12 h-12 rounded-xl bg-[#088496] text-white flex items-center justify-center font-bold text-base shadow-md shadow-[#088496]/20">
                 {{ selectedProfilePatient.name.split(' ').map(n=>n.charAt(0)).join('') }}
               </div>
               <div>
@@ -168,7 +168,7 @@
           <div class="px-6 py-4 border-t border-slate-100 bg-slate-50/50 flex justify-end">
             <button 
               @click="selectedProfilePatient = null" 
-              class="px-4 py-2 bg-blue-600 text-white rounded-xl text-xs font-semibold hover:bg-blue-700 transition-colors"
+              class="px-4 py-2 bg-[#088496] text-white rounded-xl text-xs font-semibold hover:bg-[#066b7a] transition-colors"
             >
               Dosyayı Kapat
             </button>

@@ -1,7 +1,16 @@
 <template>
-  <header class="h-16 border-b border-slate-200/50 bg-white/80 backdrop-blur-md sticky top-0 z-10 px-8 flex items-center justify-between">
+  <header class="h-16 border-b border-white/60 bg-white/55 backdrop-blur-xl sticky top-0 z-10 px-4 sm:px-8 flex items-center justify-between gap-3">
+    <!-- Mobil menü (hamburger) -->
+    <button
+      @click="toggle"
+      class="lg:hidden flex items-center justify-center w-9 h-9 rounded-xl emboss-inset bg-white text-slate-600 shrink-0"
+      aria-label="Menüyü aç"
+    >
+      <Menu class="w-5 h-5" />
+    </button>
+
     <!-- Search Bar with keyboard shortcut -->
-    <div class="relative w-96">
+    <div class="relative hidden md:block w-full md:w-72 lg:w-96">
       <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
         <Search class="h-4 w-4 text-slate-400" />
       </div>
@@ -10,7 +19,7 @@
         v-model="patientStore.searchQuery"
         type="search"
         placeholder="Hasta, onam veya malzeme ara..."
-        class="block w-full pl-9 pr-16 py-1.5 bg-slate-50/50 border border-slate-200/60 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300"
+        class="block w-full pl-9 pr-16 py-1.5 emboss-inset bg-white/70 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#088496]/20 transition-all duration-300"
       />
       <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
         <kbd class="hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-medium text-slate-400 bg-white border border-slate-200 rounded-md shadow-xs select-none">
@@ -20,11 +29,11 @@
     </div>
 
     <!-- Actions & Profile Info -->
-    <div class="flex items-center gap-6">
+    <div class="flex items-center gap-3 sm:gap-6 ml-auto">
       <!-- MHRS Sync Badge -->
       <div 
         @click="triggerSync"
-        class="flex items-center gap-2 px-3 py-1.5 rounded-full border border-slate-200/50 bg-slate-50/50 hover:bg-slate-100/60 cursor-pointer select-none transition-all duration-300"
+        class="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-full emboss-inset bg-white/60 hover:bg-white/80 cursor-pointer select-none transition-all duration-300"
         title="MHRS randevularını eşitle"
       >
         <span class="relative flex h-2 w-2">
@@ -48,7 +57,7 @@
         </span>
         <RefreshCw 
           class="w-3 h-3 text-slate-400" 
-          :class="{ 'animate-spin text-blue-600': isSyncing }"
+          :class="{ 'animate-spin text-[#088496]': isSyncing }"
         />
       </div>
 
@@ -70,8 +79,8 @@
           @click="toggleDropdown" 
           class="flex items-center gap-2 group focus:outline-none"
         >
-          <div class="w-9 h-9 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center font-bold text-blue-700 text-sm group-hover:bg-blue-100 transition-colors duration-300">
-            CÖ
+          <div class="emboss-inset w-9 h-9 rounded-xl bg-white flex items-center justify-center font-bold text-[#088496] text-sm transition-colors duration-300">
+            MA
           </div>
           <ChevronDown class="w-4 h-4 text-slate-400 group-hover:text-slate-600 transition-transform duration-300" :class="{ 'rotate-180': isDropdownOpen }" />
         </button>
@@ -90,8 +99,8 @@
             class="absolute right-0 mt-2.5 w-56 rounded-xl border border-slate-200/50 bg-white shadow-xl py-1.5 z-50 text-slate-700 text-xs"
           >
             <div class="px-4 py-2 border-b border-slate-100">
-              <p class="font-bold text-slate-800">Dr. Caner Özkan</p>
-              <p class="text-[10px] text-slate-400">Kardiyoloji Uzmanı</p>
+              <p class="font-bold text-slate-800">Dr. Müge Ateş Tıkız</p>
+              <p class="text-[10px] text-slate-400">Jinekolojik Onkolog</p>
             </div>
             <router-link to="/dashboard/profile" @click="isDropdownOpen = false" class="flex items-center gap-2 px-4 py-2 hover:bg-slate-50 transition-colors">
               <User class="w-3.5 h-3.5 text-slate-400" /> Profilim
@@ -116,18 +125,21 @@
 import { ref, onMounted, computed, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { 
-  Search, 
-  Bell, 
-  ChevronDown, 
-  User, 
-  Settings, 
-  LogOut, 
-  RefreshCw 
+  Search,
+  Bell,
+  ChevronDown,
+  User,
+  Settings,
+  LogOut,
+  RefreshCw,
+  Menu
 } from '@lucide/vue'
 import { useMagicKeys, onClickOutside } from '@vueuse/core'
 import { useMhrsSync } from '../composables/useMhrsSync'
 import { usePatientStore } from '../store/usePatientStore'
+import { useSidebar } from '../composables/useSidebar'
 
+const { toggle } = useSidebar()
 const router = useRouter()
 const patientStore = usePatientStore()
 const { isSyncing, lastSyncTime, syncStatus, triggerSync } = useMhrsSync()

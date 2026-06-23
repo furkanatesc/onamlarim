@@ -50,7 +50,7 @@ const props = defineProps({
   },
   color: {
     type: String,
-    default: '#3b82f6', // Tailwind blue-500
+    default: '#088496', // teal accent
   },
   strokeWidth: {
     type: Number,

@@ -1,16 +1,24 @@
 <template>
-  <aside class="w-64 h-screen fixed left-0 top-0 z-20 flex flex-col justify-between backdrop-blur-md bg-white/75 border-r border-slate-200/60 p-6 select-none transition-all duration-300">
+  <aside
+    class="w-64 h-screen fixed left-0 top-0 z-50 flex flex-col justify-between backdrop-blur-md bg-white/90 lg:bg-white/75 border-r border-slate-200/60 p-6 select-none transition-transform duration-300 lg:translate-x-0"
+    :class="isOpen ? 'translate-x-0' : '-translate-x-full'"
+  >
+    <button
+      @click="close"
+      class="lg:hidden absolute top-5 right-4 p-1.5 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100/60 transition-colors"
+      aria-label="Menüyü kapat"
+    >
+      <X class="w-5 h-5" />
+    </button>
     <div class="flex flex-col gap-8">
       <!-- Brand Logo -->
       <div class="flex items-center gap-3 px-2">
-        <div class="flex items-center justify-center w-9 h-9 rounded-xl bg-blue-600 shadow-lg shadow-blue-500/25">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="w-5 h-5 text-white">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-3-3v6m-9-3h18" />
-          </svg>
+        <div class="emboss-raised flex items-center justify-center w-10 h-10 rounded-xl bg-white text-[#088496]">
+          <BrandMark class="w-8 h-8" />
         </div>
         <div>
           <h1 class="text-lg font-bold tracking-tight text-slate-900 leading-none">Onamlarım</h1>
-          <span class="text-[10px] font-semibold text-blue-600 tracking-wider uppercase">Medical ERP</span>
+          <span class="text-[10px] font-semibold text-[#088496] tracking-wider uppercase">Medical ERP</span>
         </div>
       </div>
 
@@ -23,7 +31,7 @@
           class="flex items-center gap-3.5 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 group hover:translate-x-1"
           :class="[
             $route.path === item.path
-              ? 'bg-blue-600 text-white shadow-md shadow-blue-600/10'
+              ? 'bg-[#088496] text-white shadow-md shadow-[#088496]/20'
               : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50/80'
           ]"
         >
@@ -45,11 +53,11 @@
     <div class="border-t border-slate-200/50 pt-4 flex flex-col gap-3">
       <div class="flex items-center gap-3 px-2">
         <div class="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center font-bold text-slate-700 text-sm border border-slate-200/50">
-          CÖ
+          MA
         </div>
         <div class="flex-1 min-w-0">
-          <p class="text-xs font-semibold text-slate-800 truncate">Dr. Caner Özkan</p>
-          <p class="text-[10px] text-slate-400 truncate">Kardiyoloji Uzmanı</p>
+          <p class="text-xs font-semibold text-slate-800 truncate">Dr. Müge Ateş Tıkız</p>
+          <p class="text-[10px] text-slate-400 truncate">Jinekolojik Onkolog</p>
         </div>
       </div>
       <div class="text-[10px] text-slate-400 px-2 text-center">
@@ -60,20 +68,22 @@
 </template>
 
 <script setup>
-import { 
-  LayoutDashboard, 
-  FileSignature, 
-  Users, 
-  Package, 
-  RefreshCw 
-} from '@lucide/vue'
+import { LayoutDashboard, X } from '@lucide/vue'
+import BrandMark from '../components/icons/BrandMark.vue'
+import IconConsent from '../components/icons/IconConsent.vue'
+import IconCrm from '../components/icons/IconCrm.vue'
+import IconStock from '../components/icons/IconStock.vue'
+import IconMhrs from '../components/icons/IconMhrs.vue'
+import { useSidebar } from '../composables/useSidebar'
+
+const { isOpen, close } = useSidebar()
 
 const menuItems = [
   { name: 'Kontrol Paneli', path: '/dashboard/overview', icon: LayoutDashboard },
-  { name: 'Dijital Onamlar', path: '/dashboard/consents', icon: FileSignature },
-  { name: 'Hasta CRM', path: '/dashboard/crm', icon: Users },
-  { name: 'Malzeme & Envanter', path: '/dashboard/inventory', icon: Package },
-  { name: 'MHRS Randevu Eşitleme', path: '/dashboard/mhrs-sync', icon: RefreshCw },
+  { name: 'Dijital Onamlar', path: '/dashboard/consents', icon: IconConsent },
+  { name: 'Hasta CRM', path: '/dashboard/crm', icon: IconCrm },
+  { name: 'Malzeme & Envanter', path: '/dashboard/inventory', icon: IconStock },
+  { name: 'MHRS Randevu Eşitleme', path: '/dashboard/mhrs-sync', icon: IconMhrs },
 ]
 </script>
 

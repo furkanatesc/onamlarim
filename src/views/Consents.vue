@@ -8,14 +8,14 @@
       </div>
       <button 
         @click="isNewConsentOpen = true"
-        class="px-4 py-2 bg-blue-600 text-white rounded-xl text-xs font-semibold hover:bg-blue-700 shadow-md shadow-blue-600/10 transition-all flex items-center gap-1.5 cursor-pointer ml-auto sm:ml-0"
+        class="px-4 py-2 bg-[#088496] text-white rounded-xl text-xs font-semibold hover:bg-[#066b7a] shadow-md shadow-[#088496]/20 transition-all flex items-center gap-1.5 cursor-pointer ml-auto sm:ml-0"
       >
         <Plus class="w-4 h-4" /> Onam Belgesi Oluştur
       </button>
     </div>
 
     <!-- Filters and Search Bar -->
-    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 bg-white border border-slate-200/50 rounded-2xl shadow-xs animate-fade-in-up animation-delay-100">
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 bg-white emboss-raised rounded-2xl animate-fade-in-up animation-delay-100">
       <div class="relative flex-1 max-w-md">
         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
           <Search class="h-4 w-4 text-slate-400" />
@@ -24,7 +24,7 @@
           v-model="searchQuery"
           type="search"
           placeholder="Hasta adı, TC ID veya işlem ile ara..."
-          class="block w-full pl-9 pr-4 py-2 bg-slate-50/50 border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300"
+          class="block w-full pl-9 pr-4 py-2 bg-slate-50/50 border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:bg-white focus:border-[#088496] focus:ring-4 focus:ring-[#088496]/15 transition-all duration-300"
         />
       </div>
 
@@ -36,7 +36,7 @@
           class="px-3.5 py-1.5 rounded-lg text-xs font-semibold uppercase tracking-wider transition-all duration-200 cursor-pointer"
           :class="[
             statusFilter === status 
-              ? 'bg-blue-50 text-blue-600 border border-blue-100/50' 
+              ? 'bg-[#088496]/10 text-[#088496] border border-[#088496]/20'
               : 'text-slate-500 hover:bg-slate-50 border border-transparent'
           ]"
         >
@@ -46,7 +46,7 @@
     </div>
 
     <!-- Data Cards / Table -->
-    <div class="bg-white border border-slate-200/50 rounded-2xl shadow-xs overflow-hidden animate-fade-in-up animation-delay-200">
+    <div class="bg-white emboss-raised rounded-2xl overflow-hidden animate-fade-in-up animation-delay-200">
       <div class="overflow-x-auto">
         <table class="w-full text-left border-collapse">
           <thead>
@@ -75,7 +75,7 @@
               </td>
               <td class="px-6 py-4">
                 <div class="flex items-center gap-3">
-                  <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-xs">
+                  <div class="w-8 h-8 rounded-lg emboss-inset bg-white text-[#088496] flex items-center justify-center font-bold text-xs">
                     {{ consent.patientName.charAt(0) }}
                   </div>
                   <div>
@@ -110,7 +110,7 @@
                   <button 
                     v-if="consent.status === 'pending'"
                     @click="triggerSignature(consent)"
-                    class="px-2.5 py-1.5 bg-blue-600 text-white font-semibold text-[10px] rounded-lg hover:bg-blue-700 shadow-xs hover:shadow-md transition-all flex items-center gap-1 cursor-pointer"
+                    class="px-2.5 py-1.5 bg-[#088496] text-white font-semibold text-[10px] rounded-lg hover:bg-[#066b7a] shadow-xs hover:shadow-md transition-all flex items-center gap-1 cursor-pointer"
                   >
                     <PenTool class="w-3 h-3" /> İmzalat
                   </button>
@@ -160,7 +160,7 @@
                 Bana planlanan tıbbi işlem olan <strong class="text-slate-800">{{ selectedDetailsConsent.procedure }}</strong> işleminin, Dr. <strong class="text-slate-800">{{ selectedDetailsConsent.doctor }}</strong> denetiminde gerçekleştirilmesine kendi rızamla izin veriyorum.
               </p>
               <p>
-                Bu uygulamanın doğası, kapsamı, riskleri, faydaları ve alternatif tedavi seçenekleri bana detaylı olarak açıklandı. Tıbbi ve dental işlemlerin ağrı, enfeksiyon, hafif kanama veya anestezik maddelere karşı beklenmeyen reaksiyonlar gibi birtakım riskler taşıyabileceğini anlıyorum.
+                Bu uygulamanın doğası, kapsamı, riskleri, faydaları ve alternatif tedavi seçenekleri bana detaylı olarak açıklandı. Tıbbi ve cerrahi işlemlerin ağrı, enfeksiyon, hafif kanama veya anestezik maddelere karşı beklenmeyen reaksiyonlar gibi birtakım riskler taşıyabileceğini anlıyorum.
               </p>
               <p>
                 Hekimime ilaç alerjilerim, aktif sistemik rahatsızlıklarım ve düzenli kullandığım ilaçlar dahil olmak üzere tüm sağlık geçmişimi doğru ve eksiksiz olarak aktardığımı onaylıyorum. Konu hakkında soru sorma fırsatına sahip oldum ve tüm sorularım hekimim tarafından tatmin edici şekilde yanıtlandı.
@@ -192,7 +192,7 @@
           <div class="px-6 py-4 border-t border-slate-100 bg-slate-50/50 flex justify-end gap-3">
             <button 
               @click="selectedDetailsConsent = null" 
-              class="px-4 py-2 bg-blue-600 text-white rounded-xl text-xs font-semibold hover:bg-blue-700 transition-colors"
+              class="px-4 py-2 bg-[#088496] text-white rounded-xl text-xs font-semibold hover:bg-[#066b7a] transition-colors"
             >
               Kapat
             </button>

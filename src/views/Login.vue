@@ -1,94 +1,175 @@
 <template>
-  <div class="relative min-h-screen flex items-center justify-center p-6 font-sans overflow-hidden">
-    <!-- Reusable Liquid Mesh Gradient Backdrop -->
-    <MeshGradient variant="vibrant" />
+  <div class="relative min-h-screen flex flex-col lg:flex-row bg-white overflow-hidden">
+    <!-- Tam ekran arka plan: glossy teal+beyaz dalga videosu (loop) -->
+    <div class="absolute inset-0 z-0 overflow-hidden">
+      <MeshGradient variant="subtle" />
+      <video
+        ref="curtainVideo"
+        v-show="videoOk"
+        autoplay
+        loop
+        muted
+        playsinline
+        class="absolute inset-0 w-full h-full object-cover"
+        @error="videoOk = false"
+      >
+        <source src="/login-curtain2.mp4" type="video/mp4" />
+      </video>
+      <div class="absolute inset-0 bg-white/10 pointer-events-none"></div>
+      <div class="bg-noise opacity-[0.03] mix-blend-multiply absolute inset-0 pointer-events-none"></div>
+    </div>
 
-    <!-- Glassmorphic Login Card -->
-    <div class="w-full max-w-md bg-white/60 backdrop-blur-2xl border border-white/50 shadow-[0_8px_32px_rgba(0,0,0,0.04)] rounded-3xl p-8 space-y-6 z-10 animate-fade-in-up">
-      <!-- Brand Logo -->
-      <div class="flex flex-col items-center gap-3">
-        <div class="flex items-center justify-center w-11 h-11 rounded-2xl bg-blue-600 shadow-lg shadow-blue-500/25 animate-pulse">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="w-6 h-6 text-white">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-3-3v6m-9-3h18" />
-          </svg>
+    <!-- ============ SOL: Giriş kartı (sidebar gibi sola yaslı, saydam cam) ============ -->
+    <aside
+      class="relative z-20 w-full lg:w-[440px] lg:h-screen shrink-0 flex flex-col justify-center px-8 sm:px-14 py-12
+             bg-white/10 backdrop-blur-2xl border-b lg:border-b-0 lg:border-r border-white/40
+             shadow-[8px_0_40px_-12px_rgba(15,23,42,0.06)]"
+    >
+      <div class="bg-noise opacity-[0.03] mix-blend-multiply absolute inset-0 pointer-events-none"></div>
+
+      <!-- Marka -->
+      <div class="relative flex items-center gap-3 mb-10">
+        <div class="emboss-raised flex items-center justify-center w-12 h-12 rounded-2xl bg-white text-[#088496]">
+          <BrandMark class="w-8 h-8" />
         </div>
-        <div class="text-center">
-          <h1 class="text-xl font-bold tracking-tight text-slate-900 leading-none">Onamlarım</h1>
-          <span class="text-[10px] font-bold text-blue-600 tracking-wider uppercase">Tıbbi ERP ve Onam Platformu</span>
+        <div>
+          <h1 class="text-lg font-bold tracking-tight text-slate-900 leading-none">Onamlarım</h1>
+          <span class="text-[10px] font-bold text-[#088496] tracking-widest uppercase">Medical ERP</span>
         </div>
       </div>
 
-      <!-- Welcome text -->
-      <div class="text-center space-y-1">
-        <h2 class="text-sm font-bold text-slate-800">Kullanıcı Girişi</h2>
-        <p class="text-[11px] text-slate-400">Klinik panelinize erişmek için kimlik bilgilerinizi doğrulayın.</p>
+      <!-- Başlık -->
+      <div class="relative mb-7">
+        <p class="text-[11px] font-bold uppercase tracking-widest text-[#088496] mb-2">Klinik Yönetim Sistemi</p>
+        <h2 class="text-3xl font-extrabold tracking-tight text-slate-900 leading-tight text-engrave">
+          Tekrar hoş geldiniz,
+          <span class="font-serif-italic font-normal">doktor</span>.
+        </h2>
+        <p class="text-sm text-slate-500 mt-3 leading-relaxed">
+          Klinik panelinize erişmek için kimlik bilgilerinizi doğrulayın.
+        </p>
       </div>
 
-      <!-- Login Form -->
-      <form @submit.prevent="handleLogin" class="space-y-4 pt-2">
-        <div class="space-y-1 text-left">
-          <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Hekim Kullanıcı Adı veya E-posta</label>
+      <!-- Form -->
+      <form @submit.prevent="handleLogin" class="relative space-y-4">
+        <div class="space-y-1.5">
+          <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Hekim Kullanıcı Adı</label>
           <div class="relative">
             <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
               <User class="w-4 h-4" />
             </div>
-            <input 
-              v-model="username" 
+            <input
+              v-model="username"
               required
-              type="text" 
-              placeholder="Örn: dr.caner" 
-              class="w-full pl-10 pr-3.5 py-2.5 bg-white/50 border border-slate-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300"
+              type="text"
+              placeholder="Örn: dr.muge"
+              :disabled="revealing"
+              class="w-full pl-10 pr-3.5 py-2.5 text-sm emboss-inset bg-white rounded-xl text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#088496]/25 transition-all duration-300 disabled:opacity-60"
             />
           </div>
         </div>
 
-        <div class="space-y-1 text-left">
+        <div class="space-y-1.5">
           <div class="flex justify-between items-center">
             <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Şifre</label>
-            <a href="#" class="text-[10px] text-blue-600 hover:text-blue-700 font-bold hover:underline">Şifremi Unuttum</a>
+            <a href="#" class="text-[10px] text-[#088496] hover:text-[#066b7a] font-bold hover:underline">Şifremi Unuttum</a>
           </div>
           <div class="relative">
             <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
               <Lock class="w-4 h-4" />
             </div>
-            <input 
-              v-model="password" 
+            <input
+              v-model="password"
               required
-              type="password" 
-              placeholder="••••••••" 
-              class="w-full pl-10 pr-3.5 py-2.5 bg-white/50 border border-slate-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300"
+              type="password"
+              placeholder="••••••••"
+              :disabled="revealing"
+              class="w-full pl-10 pr-3.5 py-2.5 text-sm emboss-inset bg-white rounded-xl text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#088496]/25 transition-all duration-300 disabled:opacity-60"
             />
           </div>
         </div>
 
-        <!-- Submit Button -->
-        <button 
+        <button
           type="submit"
-          :disabled="isLoading"
-          class="w-full py-2.5 bg-blue-600 text-white rounded-xl text-xs font-bold hover:bg-blue-700 shadow-md shadow-blue-600/10 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
+          :disabled="isLoading || revealing"
+          class="w-full py-3 bg-[#088496] text-white rounded-xl text-sm font-bold hover:bg-[#066b7a] shadow-md shadow-[#088496]/25 disabled:opacity-60 disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
         >
           <span v-if="isLoading" class="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
-          <span v-else>Sisteme Giriş Yap</span>
+          <template v-else-if="revealing">Hoş geldiniz…</template>
+          <template v-else>Sisteme Giriş Yap <ArrowRight class="w-4 h-4" /></template>
         </button>
       </form>
 
-      <!-- Quick Fill Helper (for easy demo testing) -->
-      <div 
+      <!-- Demo helper -->
+      <div
         @click="quickFill"
-        class="border border-slate-200/50 bg-white/40 hover:bg-white/80 p-3 rounded-2xl cursor-pointer text-left text-[10px] text-slate-500 leading-normal transition-all"
+        class="relative mt-6 emboss-inset bg-white/60 hover:bg-white p-3 rounded-2xl cursor-pointer text-left text-[10px] text-slate-500 leading-normal transition-all"
         title="Demo testi için tıklayın"
       >
-        <span class="font-bold text-slate-700 block mb-0.5">Demo Giriş Bilgileri (Hızlı Doldur):</span>
-        Kullanıcı: <strong class="text-blue-600 font-mono">dr.caner</strong> • Şifre: <strong class="text-blue-600 font-mono">123456</strong>
+        <span class="font-bold text-slate-700 block mb-0.5">Demo Giriş (Hızlı Doldur):</span>
+        Kullanıcı: <strong class="text-[#088496] font-mono">dr.muge</strong> • Şifre: <strong class="text-[#088496] font-mono">123456</strong>
       </div>
-    </div>
+    </aside>
+
+    <!-- ============ SAĞ: İçerik / reveal sahnesi ============ -->
+    <main
+      class="relative flex-col items-center justify-center px-8 py-12 overflow-hidden"
+      :class="revealing
+        ? 'fixed inset-0 z-50 flex lg:relative lg:inset-auto lg:z-10 lg:flex-1'
+        : 'hidden lg:flex lg:flex-1'"
+    >
+      <!-- Doktor kartı: SOL ÜST, yukarıdan iner -->
+      <div
+        class="absolute top-8 left-8 sm:top-12 sm:left-12 w-32 sm:w-44 aspect-[3/4] rounded-[24px] overflow-hidden emboss-raised bg-white ring-1 ring-[#088496]/15 transform-gpu will-change-transform transition-[opacity,transform] duration-[850ms] delay-[400ms] ease-[cubic-bezier(.22,1,.36,1)]"
+        :class="revealing ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-24 pointer-events-none'"
+      >
+        <img
+          src="/dr-muge.jpg"
+          alt="Dr. Müge Ateş Tıkız"
+          class="w-full h-full object-cover object-top"
+          @error="photoOk = false"
+          v-show="photoOk"
+        />
+        <div v-if="!photoOk" class="w-full h-full flex items-center justify-center bg-slate-100 text-slate-300 text-xs">dr-muge.jpg</div>
+        <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-900/75 to-transparent px-3.5 pt-8 pb-3 text-left">
+          <p class="text-xs sm:text-sm font-bold text-white leading-tight">Dr. Müge Ateş Tıkız</p>
+          <p class="text-[9px] sm:text-[10px] text-white/80">Jinekolojik Onkolog</p>
+        </div>
+      </div>
+
+      <!-- Okul amblemi kartı: SAĞ ALT, aşağıdan yükselir -->
+      <div
+        class="absolute bottom-8 right-8 sm:bottom-12 sm:right-12 bg-white/15 backdrop-blur-xl border border-white/40 rounded-3xl shadow-[0_8px_30px_-8px_rgba(15,23,42,0.12)] px-5 sm:px-6 py-4 sm:py-5 flex flex-col items-center text-center transform-gpu will-change-transform transition-[opacity,transform] duration-[850ms] delay-[700ms] ease-[cubic-bezier(.22,1,.36,1)]"
+        :class="revealing ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-24 pointer-events-none'"
+      >
+        <img
+          src="/istanbul-tip-amblem.png"
+          alt="İstanbul Üniversitesi İstanbul Tıp Fakültesi"
+          class="w-16 sm:w-24 h-auto"
+          @error="emblemOk = false"
+          v-show="emblemOk"
+        />
+        <p class="mt-2 text-[9px] sm:text-[10px] font-semibold text-slate-500 leading-snug">
+          İstanbul Üniversitesi<br />İstanbul Tıp Fakültesi
+        </p>
+      </div>
+
+      <!-- Hoş geldiniz: merkez, kurumsal teal -->
+      <p
+        class="absolute inset-0 flex items-center justify-center text-3xl sm:text-4xl font-serif-italic text-[#088496] pointer-events-none transition-all duration-700 delay-[1100ms]"
+        :class="revealing ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'"
+      >
+        Hoş geldiniz
+      </p>
+    </main>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { User, Lock } from '@lucide/vue'
+import { User, Lock, ArrowRight } from '@lucide/vue'
+import BrandMark from '../components/icons/BrandMark.vue'
 import MeshGradient from '../components/MeshGradient.vue'
 
 const router = useRouter()
@@ -96,20 +177,35 @@ const router = useRouter()
 const username = ref('')
 const password = ref('')
 const isLoading = ref(false)
+const revealing = ref(false)
+const videoOk = ref(true)
+const emblemOk = ref(true)
+const photoOk = ref(true)
+
+/* ---------- Akışkan perde: tek video, native loop, yavaşlatılmış (akışkanlık için) ---------- */
+const curtainVideo = ref(null)
+onMounted(() => {
+  const v = curtainVideo.value
+  if (v) {
+    v.playbackRate = 1 // native hız (yavaşlatma titreme yapıyordu)
+    v.play().catch(() => {})
+  }
+})
 
 function quickFill() {
-  username.value = 'dr.caner'
+  username.value = 'dr.muge'
   password.value = '123456'
 }
 
 function handleLogin() {
+  if (!username.value || !password.value || revealing.value) return
   isLoading.value = true
+  // kısa doğrulama → reveal animasyonu → dashboard
   setTimeout(() => {
     isLoading.value = false
-    // Store token/flag
+    revealing.value = true
     localStorage.setItem('onamlarim_token', 'demo-token')
-    // Go to dashboard
-    router.push('/dashboard/overview')
-  }, 1000)
+    setTimeout(() => router.push('/dashboard/overview'), 3400)
+  }, 700)
 }
 </script>
