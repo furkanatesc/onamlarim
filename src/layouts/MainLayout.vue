@@ -14,8 +14,8 @@
       <!-- Page Content Wrapper -->
       <main class="flex-1 p-8 overflow-y-auto">
         <router-view v-slot="{ Component }">
-          <transition 
-            name="fade" 
+          <transition
+            name="fade"
             mode="out-in"
           >
             <component :is="Component" />
@@ -23,6 +23,9 @@
         </router-view>
       </main>
     </div>
+
+    <!-- Sesli AI asistan (yalnızca dashboard) -->
+    <AssistantWidget />
   </div>
 </template>
 
@@ -30,6 +33,7 @@
 import MeshGradient from '../components/MeshGradient.vue'
 import Sidebar from './Sidebar.vue'
 import Header from './Header.vue'
+import AssistantWidget from '../components/assistant/AssistantWidget.vue'
 </script>
 
 <style>
