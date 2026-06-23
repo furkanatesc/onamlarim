@@ -7,7 +7,7 @@
     </div>
 
     <!-- Forms -->
-    <div class="bg-white border border-slate-200/50 rounded-2xl p-6 shadow-xs space-y-8">
+    <div class="bg-white emboss-raised rounded-2xl p-6 space-y-8">
       
       <!-- Section 1: Clinic profile -->
       <div class="space-y-4">

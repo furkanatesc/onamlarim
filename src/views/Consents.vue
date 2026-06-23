@@ -15,7 +15,7 @@
     </div>
 
     <!-- Filters and Search Bar -->
-    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 bg-white border border-slate-200/50 rounded-2xl shadow-xs animate-fade-in-up animation-delay-100">
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 bg-white emboss-raised rounded-2xl animate-fade-in-up animation-delay-100">
       <div class="relative flex-1 max-w-md">
         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
           <Search class="h-4 w-4 text-slate-400" />
@@ -46,7 +46,7 @@
     </div>
 
     <!-- Data Cards / Table -->
-    <div class="bg-white border border-slate-200/50 rounded-2xl shadow-xs overflow-hidden animate-fade-in-up animation-delay-200">
+    <div class="bg-white emboss-raised rounded-2xl overflow-hidden animate-fade-in-up animation-delay-200">
       <div class="overflow-x-auto">
         <table class="w-full text-left border-collapse">
           <thead>
@@ -160,7 +160,7 @@
                 Bana planlanan tıbbi işlem olan <strong class="text-slate-800">{{ selectedDetailsConsent.procedure }}</strong> işleminin, Dr. <strong class="text-slate-800">{{ selectedDetailsConsent.doctor }}</strong> denetiminde gerçekleştirilmesine kendi rızamla izin veriyorum.
               </p>
               <p>
-                Bu uygulamanın doğası, kapsamı, riskleri, faydaları ve alternatif tedavi seçenekleri bana detaylı olarak açıklandı. Tıbbi ve dental işlemlerin ağrı, enfeksiyon, hafif kanama veya anestezik maddelere karşı beklenmeyen reaksiyonlar gibi birtakım riskler taşıyabileceğini anlıyorum.
+                Bu uygulamanın doğası, kapsamı, riskleri, faydaları ve alternatif tedavi seçenekleri bana detaylı olarak açıklandı. Tıbbi ve cerrahi işlemlerin ağrı, enfeksiyon, hafif kanama veya anestezik maddelere karşı beklenmeyen reaksiyonlar gibi birtakım riskler taşıyabileceğini anlıyorum.
               </p>
               <p>
                 Hekimime ilaç alerjilerim, aktif sistemik rahatsızlıklarım ve düzenli kullandığım ilaçlar dahil olmak üzere tüm sağlık geçmişimi doğru ve eksiksiz olarak aktardığımı onaylıyorum. Konu hakkında soru sorma fırsatına sahip oldum ve tüm sorularım hekimim tarafından tatmin edici şekilde yanıtlandı.

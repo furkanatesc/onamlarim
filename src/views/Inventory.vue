@@ -16,7 +16,7 @@
 
     <!-- Quick Stat Alerts (Staggered item 2) -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 animate-fade-in-up animation-delay-100">
-      <div class="p-5 bg-white border border-slate-200/50 rounded-2xl shadow-xs flex items-center justify-between">
+      <div class="p-5 bg-white emboss-raised rounded-2xl flex items-center justify-between">
         <div>
           <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Takip Edilen Malzeme</span>
           <p class="text-2xl font-extrabold text-slate-800 mt-1">{{ inventoryStore.items.length }}</p>
@@ -26,7 +26,7 @@
         </div>
       </div>
       
-      <div class="p-5 bg-white border border-slate-200/50 rounded-2xl shadow-xs flex items-center justify-between">
+      <div class="p-5 bg-white emboss-raised rounded-2xl flex items-center justify-between">
         <div>
           <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Kritik Stok Uyarıları</span>
           <p class="text-2xl font-extrabold text-rose-600 mt-1">{{ inventoryStore.lowStockItems.length }}</p>
@@ -36,7 +36,7 @@
         </div>
       </div>
 
-      <div class="p-5 bg-white border border-slate-200/50 rounded-2xl shadow-xs flex items-center justify-between">
+      <div class="p-5 bg-white emboss-raised rounded-2xl flex items-center justify-between">
         <div>
           <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Bu Hafta Yenilenen</span>
           <p class="text-2xl font-extrabold text-emerald-600 mt-1">4 Malzeme</p>
@@ -48,7 +48,7 @@
     </div>
 
     <!-- Search Controls -->
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 bg-white border border-slate-200/50 rounded-2xl shadow-xs animate-fade-in-up animation-delay-200">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 bg-white emboss-raised rounded-2xl animate-fade-in-up animation-delay-200">
       <div class="relative flex-1 max-w-md">
         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
           <Search class="h-4 w-4 text-slate-400" />
@@ -63,7 +63,7 @@
     </div>
 
     <!-- Materials Table -->
-    <div class="bg-white border border-slate-200/50 rounded-2xl shadow-xs overflow-hidden animate-fade-in-up animation-delay-300">
+    <div class="bg-white emboss-raised rounded-2xl overflow-hidden animate-fade-in-up animation-delay-300">
       <div class="overflow-x-auto">
         <table class="w-full text-left border-collapse">
           <thead>
@@ -164,7 +164,7 @@
                 v-model="materialForm.name" 
                 required
                 type="text" 
-                placeholder="Örn: Diş Dolgu Kompoziti" 
+                placeholder="Örn: Cerrahi Sütür"
                 class="w-full px-3.5 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-[#088496] focus:ring-4 focus:ring-[#088496]/15 transition-all duration-300"
               />
             </div>

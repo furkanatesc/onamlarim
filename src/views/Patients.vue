@@ -15,7 +15,7 @@
     </div>
 
     <!-- Search Box and List Info -->
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 bg-white border border-slate-200/50 rounded-2xl shadow-xs animate-fade-in-up animation-delay-100">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 bg-white emboss-raised rounded-2xl animate-fade-in-up animation-delay-100">
       <div class="relative flex-1 max-w-md">
         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
           <Search class="h-4 w-4 text-slate-400" />
@@ -35,7 +35,7 @@
     </div>
 
     <!-- CRM Patient Grid / Table -->
-    <div class="bg-white border border-slate-200/50 rounded-2xl shadow-xs overflow-hidden animate-fade-in-up animation-delay-200">
+    <div class="bg-white emboss-raised rounded-2xl overflow-hidden animate-fade-in-up animation-delay-200">
       <div class="overflow-x-auto">
         <table class="w-full text-left border-collapse">
           <thead>

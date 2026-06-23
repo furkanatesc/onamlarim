@@ -18,7 +18,7 @@
     <!-- Status Cards & Settings panel -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 animate-fade-in-up animation-delay-100">
       <!-- Sync Status Widget -->
-      <div class="md:col-span-2 bg-white border border-slate-200/50 rounded-2xl p-6 shadow-xs flex flex-col justify-between">
+      <div class="md:col-span-2 bg-white emboss-raised rounded-2xl p-6 flex flex-col justify-between">
         <div class="space-y-4">
           <div class="flex items-center gap-3">
             <span class="relative flex h-3 w-3">
@@ -58,7 +58,7 @@
       </div>
 
       <!-- Settings Panel -->
-      <div class="bg-white border border-slate-200/50 rounded-2xl p-6 shadow-xs space-y-4">
+      <div class="bg-white emboss-raised rounded-2xl p-6 space-y-4">
         <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Eşitleme Ayarları</h3>
         <div class="flex flex-col gap-3 text-xs text-slate-600 font-medium">
           <label class="flex items-center gap-2.5 cursor-pointer">
@@ -82,7 +82,7 @@
     </div>
 
     <!-- Active MHRS Queued Appointments -->
-    <div class="bg-white border border-slate-200/50 rounded-2xl shadow-xs overflow-hidden animate-fade-in-up animation-delay-200">
+    <div class="bg-white emboss-raised rounded-2xl overflow-hidden animate-fade-in-up animation-delay-200">
       <div class="px-6 py-5 border-b border-slate-100">
         <h3 class="text-sm font-bold text-slate-800">Bugünkü MHRS Randevu Listesi (11 Haziran 2026)</h3>
         <p class="text-[10px] text-slate-400">Klinik sırası Sağlık Bakanlığı veri tabanından anlık çekilmektedir.</p>

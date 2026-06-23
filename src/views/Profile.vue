@@ -8,7 +8,7 @@
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
       <!-- Left Column - Profile Card -->
-      <div class="bg-white border border-slate-200/50 rounded-2xl p-6 shadow-xs flex flex-col items-center text-center space-y-4">
+      <div class="bg-white emboss-raised rounded-2xl p-6 flex flex-col items-center text-center space-y-4">
         <div class="w-20 h-20 rounded-2xl emboss-inset bg-white flex items-center justify-center font-bold text-[#088496] text-2xl">
           MA
         </div>
@@ -29,7 +29,7 @@
       </div>
 
       <!-- Right Column - Form Details -->
-      <div class="md:col-span-2 bg-white border border-slate-200/50 rounded-2xl p-6 shadow-xs space-y-6">
+      <div class="md:col-span-2 bg-white emboss-raised rounded-2xl p-6 space-y-6">
         <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider border-b border-slate-100 pb-2">Bilgileri Güncelle</h3>
         
         <form @submit.prevent="saveProfile" class="space-y-4">
