@@ -10,7 +10,10 @@
         loop
         muted
         playsinline
-        class="absolute inset-0 w-full h-full object-cover"
+        preload="auto"
+        class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
+        :style="{ opacity: videoReady ? 1 : 0 }"
+        @canplay="videoReady = true"
         @error="videoOk = false"
       >
         <source src="/login-curtain2.mp4" type="video/mp4" />
@@ -179,6 +182,7 @@ const password = ref('')
 const isLoading = ref(false)
 const revealing = ref(false)
 const videoOk = ref(true)
+const videoReady = ref(false)
 const emblemOk = ref(true)
 const photoOk = ref(true)
 
