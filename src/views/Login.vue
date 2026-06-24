@@ -24,10 +24,10 @@
 
     <!-- ============ SOL: Giriş kartı (sidebar gibi sola yaslı, saydam cam) ============ -->
     <aside
-      class="relative z-20 w-full lg:w-[440px] min-h-[100svh] lg:min-h-0 lg:h-screen shrink-0 flex flex-col justify-center px-6 sm:px-14 py-12
+      class="relative z-20 w-full lg:w-[440px] min-h-[100svh] lg:min-h-0 lg:h-screen shrink-0 flex-col justify-center px-6 sm:px-14 py-12
              border-b lg:border-b-0 lg:border-r border-white/40
-             shadow-[8px_0_40px_-12px_rgba(15,23,42,0.06)] transform-gpu transition-transform duration-[800ms] ease-[cubic-bezier(.22,1,.36,1)]"
-      :class="revealing ? '-translate-y-full lg:translate-y-0 pointer-events-none lg:pointer-events-auto' : 'translate-y-0'"
+             shadow-[8px_0_40px_-12px_rgba(15,23,42,0.06)]"
+      :class="revealing ? 'hidden lg:flex pointer-events-none lg:pointer-events-auto' : 'flex'"
     >
       <!-- Cam zemin: backdrop-filter ayrı katmanda — iOS'ta blur'lu elemanın kendisini
            animasyona sokmak (transform/opacity) bozuk render veriyor; dıştaki aside blur'suz kalsın. -->
@@ -127,7 +127,7 @@
     >
       <!-- Doktor kartı: SOL ÜST, soldan gelir -->
       <div
-        class="absolute top-8 left-8 sm:top-12 sm:left-12 w-32 sm:w-44 aspect-[3/4] rounded-[24px] overflow-hidden emboss-raised bg-white ring-1 ring-[#088496]/15 transform-gpu will-change-transform transition-[opacity,transform] duration-[850ms] delay-[400ms] ease-[cubic-bezier(.22,1,.36,1)]"
+        class="absolute top-8 left-8 sm:top-12 sm:left-12 w-32 sm:w-44 aspect-[3/4] rounded-[24px] overflow-hidden emboss-raised bg-white ring-1 ring-[#088496]/15 transform-gpu will-change-transform lg:transition-[opacity,transform] lg:duration-[850ms] lg:delay-[400ms] lg:ease-[cubic-bezier(.22,1,.36,1)]"
         :class="revealActive ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-16 pointer-events-none'"
       >
         <img
@@ -146,7 +146,7 @@
 
       <!-- Okul amblemi kartı: SAĞ ALT, sağdan gelir -->
       <div
-        class="absolute bottom-8 right-8 sm:bottom-12 sm:right-12 bg-white/15 backdrop-blur-xl border border-white/40 rounded-3xl shadow-[0_8px_30px_-8px_rgba(15,23,42,0.12)] px-5 sm:px-6 py-4 sm:py-5 flex flex-col items-center text-center transform-gpu will-change-transform transition-[opacity,transform] duration-[850ms] delay-[700ms] ease-[cubic-bezier(.22,1,.36,1)]"
+        class="absolute bottom-8 right-8 sm:bottom-12 sm:right-12 bg-white/15 backdrop-blur-xl border border-white/40 rounded-3xl shadow-[0_8px_30px_-8px_rgba(15,23,42,0.12)] px-5 sm:px-6 py-4 sm:py-5 flex flex-col items-center text-center transform-gpu will-change-transform lg:transition-[opacity,transform] lg:duration-[850ms] lg:delay-[700ms] lg:ease-[cubic-bezier(.22,1,.36,1)]"
         :class="revealActive ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-16 pointer-events-none'"
       >
         <img
@@ -163,7 +163,7 @@
 
       <!-- Hoş geldiniz: merkez, kurumsal teal -->
       <p
-        class="absolute inset-0 flex items-center justify-center text-3xl sm:text-4xl font-serif-italic text-[#088496] pointer-events-none transition-all duration-700 delay-[1100ms]"
+        class="absolute inset-0 flex items-center justify-center text-3xl sm:text-4xl font-serif-italic text-[#088496] pointer-events-none lg:transition-all lg:duration-700 lg:delay-[1100ms]"
         :class="revealActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'"
       >
         Hoş geldiniz
