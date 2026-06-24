@@ -233,10 +233,16 @@ function tick() {
 
 onMounted(() => {
   const isMobile = window.innerWidth < 768
-  // Tier C: reduced motion or mobile -> static, fully-defined SVG (no decode, no scrub)
-  if (!props.src || reduced || isMobile) {
+  // Tier C: yalnızca reduced-motion ya da video yoksa statik SVG
+  if (!props.src || reduced) {
     mode.value = 'svg'
     progress.value = 1
+    return
+  }
+  if (isMobile) {
+    // Mobilde frame-extraction ağır → canlı video seek (scroll'a bağlı) kullan
+    rafId = requestAnimationFrame(tick)
+    startSeekFallback()
     return
   }
   const c = canvasRef.value

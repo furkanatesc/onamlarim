@@ -1,5 +1,5 @@
 <template>
-  <div class="relative min-h-screen flex flex-col lg:flex-row bg-white overflow-hidden">
+  <div class="relative min-h-screen flex flex-col lg:flex-row bg-white overflow-x-hidden">
     <!-- Tam ekran arka plan: glossy teal+beyaz dalga videosu (loop) -->
     <div class="absolute inset-0 z-0 overflow-hidden">
       <MeshGradient variant="subtle" />
@@ -24,7 +24,7 @@
 
     <!-- ============ SOL: Giriş kartı (sidebar gibi sola yaslı, saydam cam) ============ -->
     <aside
-      class="relative z-20 w-full lg:w-[440px] lg:h-screen shrink-0 flex flex-col justify-center px-8 sm:px-14 py-12
+      class="relative z-20 w-full lg:w-[440px] min-h-[100svh] lg:min-h-0 lg:h-screen shrink-0 flex flex-col justify-center px-6 sm:px-14 py-12
              bg-white/10 backdrop-blur-2xl border-b lg:border-b-0 lg:border-r border-white/40
              shadow-[8px_0_40px_-12px_rgba(15,23,42,0.06)]"
     >

@@ -94,3 +94,13 @@
 .animation-delay-500 {
   animation-delay: 500ms;
 }
+
+/* iOS Safari, font-size < 16px olan input'a odaklanınca ekranı zoom'lar.
+   Mobilde tüm form alanlarını 16px yaparak otomatik zoom'u engelle. */
+@media (max-width: 767px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+}
