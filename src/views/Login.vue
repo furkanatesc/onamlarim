@@ -215,7 +215,7 @@ function handleLogin() {
     isLoading.value = false
     revealing.value = true
     localStorage.setItem('onamlarim_token', 'demo-token')
-    redirectTimer = setTimeout(() => router.push('/dashboard/overview'), 4200)
+    redirectTimer = setTimeout(() => router.push('/dashboard/overview'), 3000)
   }, 700)
 }
 </script>
