@@ -74,7 +74,7 @@
       </button>
 
       <!-- Doctor/User Dropdown -->
-      <div class="relative">
+      <div ref="dropdownRef" class="relative">
         <button 
           @click="toggleDropdown" 
           class="flex items-center gap-2 group focus:outline-none"
@@ -181,7 +181,12 @@ function focusSearch() {
 
 // Dropdown state
 const isDropdownOpen = ref(false)
+const dropdownRef = ref(null)
 function toggleDropdown() {
   isDropdownOpen.value = !isDropdownOpen.value
 }
+// Dışarı tıkta dropdown'u kapat
+onClickOutside(dropdownRef, () => {
+  isDropdownOpen.value = false
+})
 </script>

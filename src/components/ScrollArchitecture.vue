@@ -70,7 +70,7 @@ let frames = []
 let framesReady = false
 let lastIdx = -1
 let rafId = null
-let seeking = false
+let lastProgress = -1
 
 const reduced =
   typeof matchMedia !== 'undefined' &&
@@ -189,8 +189,10 @@ async function extractFrames() {
 
 function startSeekFallback() {
   const v = videoRef.value
+  // SVG'ye düşersek binayı tam çizili göster (progress=1), boş hero olmasın
   if (!v) {
     mode.value = 'svg'
+    progress.value = 1
     return
   }
   mode.value = 'seek'
@@ -199,32 +201,38 @@ function startSeekFallback() {
     loaded = true
     v.currentTime = 0
   }, { once: true })
-  v.addEventListener('seeked', () => {
-    seeking = false
-  })
   v.addEventListener('error', () => {
     mode.value = 'svg'
+    progress.value = 1
   }, { once: true })
   setTimeout(() => {
-    if (!loaded) mode.value = 'svg'
+    if (!loaded) {
+      mode.value = 'svg'
+      progress.value = 1
+    }
   }, 6000)
 }
 
 function tick() {
-  progress.value = getProgress()
-  if (mode.value === 'frames' && framesReady && frames.length) {
-    const idx = Math.round(progress.value * (frames.length - 1))
-    if (idx !== lastIdx) {
-      lastIdx = idx
-      if (frames[idx]) drawFrame(frames[idx])
-    }
-  } else if (mode.value === 'seek') {
-    const v = videoRef.value
-    if (v && v.duration && isFinite(v.duration) && v.readyState >= 1) {
-      const target = progress.value * v.duration
-      if (!seeking && Math.abs(v.currentTime - target) > 0.001) {
-        seeking = true
-        v.currentTime = target
+  // Sadece scroll ilerlemesi değiştiğinde iş yap (boştayken bedava rAF)
+  const p = getProgress()
+  if (p !== lastProgress) {
+    lastProgress = p
+    progress.value = p
+    if (mode.value === 'frames' && framesReady && frames.length) {
+      const idx = Math.round(p * (frames.length - 1))
+      if (idx !== lastIdx) {
+        lastIdx = idx
+        if (frames[idx]) drawFrame(frames[idx])
+      }
+    } else if (mode.value === 'seek') {
+      const v = videoRef.value
+      if (v && v.duration && isFinite(v.duration) && v.readyState >= 1) {
+        const target = p * v.duration
+        // Native v.seeking kullan → düşen 'seeked' eventinde kilitlenmez
+        if (!v.seeking && Math.abs(v.currentTime - target) > 0.05) {
+          v.currentTime = target
+        }
       }
     }
   }

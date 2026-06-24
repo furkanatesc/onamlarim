@@ -14,6 +14,18 @@ export function useSpeech({ lang = 'tr-TR' } = {}) {
   const transcript = ref('')
   const muted = ref(false)
 
+  // Türkçe ses async yüklenir (Chrome ilk çağrıda boş döner) → önceden ısıt
+  let trVoice = null
+  function loadVoices() {
+    if (!synth) return
+    const found = synth.getVoices().find((v) => v.lang && v.lang.toLowerCase().startsWith('tr'))
+    if (found) trVoice = found
+  }
+  if (synth) {
+    loadVoices()
+    synth.addEventListener('voiceschanged', loadVoices)
+  }
+
   let recognition = null
   let resultCallback = null
 
@@ -76,8 +88,7 @@ export function useSpeech({ lang = 'tr-TR' } = {}) {
       synth.cancel()
       const utter = new SpeechSynthesisUtterance(text)
       utter.lang = lang
-      const voices = synth.getVoices()
-      const trVoice = voices.find((v) => v.lang && v.lang.toLowerCase().startsWith('tr'))
+      if (!trVoice) loadVoices()
       if (trVoice) utter.voice = trVoice
       synth.speak(utter)
     } catch {
@@ -103,6 +114,7 @@ export function useSpeech({ lang = 'tr-TR' } = {}) {
   onBeforeUnmount(() => {
     stop()
     cancelSpeak()
+    if (synth) synth.removeEventListener('voiceschanged', loadVoices)
   })
 
   return {

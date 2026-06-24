@@ -127,13 +127,13 @@
 </template>
 
 <script setup>
-import { ref, nextTick, watch } from 'vue'
+import { ref, nextTick } from 'vue'
 import { MessageCircle, Mic, Send, X, Volume2, VolumeX } from '@lucide/vue'
 import { useSpeech } from '../../composables/useSpeech'
 import { useAssistant } from '../../composables/useAssistant'
 
 const { handle } = useAssistant()
-const { isSupported, ttsSupported, isListening, transcript, muted, start, stop, onResult, speak, toggleMute } =
+const { isSupported, ttsSupported, isListening, transcript, muted, start, stop, onResult, speak, cancelSpeak, toggleMute } =
   useSpeech()
 
 const isOpen = ref(false)
@@ -170,13 +170,8 @@ function toggleMic() {
   else start()
 }
 
-// Sesli sonuç gelince otomatik gönder
+// Sesli sonuç gelince otomatik gönder (canlı metin "Canlı transcript" satırında gösterilir)
 onResult((finalText) => send(finalText))
-
-// Dinlerken canlı metni input'a yansıt
-watch(transcript, (v) => {
-  if (isListening.value) input.value = v
-})
 
 function open() {
   isOpen.value = true
@@ -184,6 +179,7 @@ function open() {
 }
 function close() {
   if (isListening.value) stop()
+  cancelSpeak() // panel kapanınca süren seslendirmeyi durdur
   isOpen.value = false
 }
 </script>

@@ -145,9 +145,11 @@ export function resolveIntent(utterance, intents = INTENTS) {
   let best = null
   let bestScore = 0
   for (const intent of intents) {
+    // En uzun (en spesifik) eşleşen keyword skoru belirler — kısa keyword'leri
+    // toplamak yerine, böylece 'bekleyen onam' gibi spesifik ifade 'onam'a baskın gelir
     let score = 0
     for (const kw of intent.keywords) {
-      if (norm.includes(kw)) score += kw.length
+      if (kw.length > score && norm.includes(kw)) score = kw.length
     }
     if (score > bestScore) {
       bestScore = score

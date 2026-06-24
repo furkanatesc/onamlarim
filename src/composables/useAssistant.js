@@ -66,10 +66,7 @@ export function useAssistant() {
       case 'navigate': {
         const label = ROUTE_LABELS[intent.payload] || 'ilgili'
         router.push(intent.payload)
-        return {
-          reply: `${label} sayfasını açtım.`,
-          action: { type: 'navigate', path: intent.payload },
-        }
+        return { reply: `${label} sayfasını açtım.` }
       }
       case 'data':
         return { reply: answerData(intent.payload) }

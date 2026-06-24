@@ -169,7 +169,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 import { useRouter } from 'vue-router'
 import { User, Lock, ArrowRight } from '@lucide/vue'
 import BrandMark from '../components/icons/BrandMark.vue'
@@ -186,14 +186,19 @@ const videoReady = ref(false)
 const emblemOk = ref(true)
 const photoOk = ref(true)
 
-/* ---------- Akışkan perde: tek video, native loop, yavaşlatılmış (akışkanlık için) ---------- */
+/* ---------- Akışkan perde: tek video, native loop ---------- */
 const curtainVideo = ref(null)
+let loginTimer = null
+let redirectTimer = null
+
 onMounted(() => {
   const v = curtainVideo.value
-  if (v) {
-    v.playbackRate = 1 // native hız (yavaşlatma titreme yapıyordu)
-    v.play().catch(() => {})
-  }
+  if (v) v.play().catch(() => {})
+})
+
+onBeforeUnmount(() => {
+  if (loginTimer) clearTimeout(loginTimer)
+  if (redirectTimer) clearTimeout(redirectTimer)
 })
 
 function quickFill() {
@@ -205,11 +210,11 @@ function handleLogin() {
   if (!username.value || !password.value || revealing.value) return
   isLoading.value = true
   // kısa doğrulama → reveal animasyonu → dashboard
-  setTimeout(() => {
+  loginTimer = setTimeout(() => {
     isLoading.value = false
     revealing.value = true
     localStorage.setItem('onamlarim_token', 'demo-token')
-    setTimeout(() => router.push('/dashboard/overview'), 3400)
+    redirectTimer = setTimeout(() => router.push('/dashboard/overview'), 3400)
   }, 700)
 }
 </script>

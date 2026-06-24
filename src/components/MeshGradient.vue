@@ -22,7 +22,7 @@ const props = defineProps({
 // Ortak blur (bulanıklık) ve boyut özellikleri
 const baseBlobClass = 'absolute rounded-full mix-blend-multiply filter blur-[120px] w-[500px] h-[500px] opacity-70'
 
-const bgColor = computed(() => props.variant === 'vibrant' ? 'bg-white' : 'bg-white')
+const bgColor = 'bg-white'
 
 // Varyanta göre renk geçişleri — emboss-paper dili: çok hafif teal + kâğıt tonları
 const color1 = computed(() => props.variant === 'vibrant' ? 'bg-[#088496]/20' : 'bg-[#088496]/8')
