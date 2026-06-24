@@ -122,6 +122,9 @@
       <p v-if="!isSupported" class="px-4 pb-3 text-[10px] text-slate-400 text-center">
         Tarayıcınız sesli girişi desteklemiyor — yazarak devam edebilirsiniz.
       </p>
+      <p v-else-if="speechError" class="px-4 pb-3 text-[10px] text-rose-500 text-center">
+        {{ speechError }}
+      </p>
     </div>
   </transition>
 </template>
@@ -133,7 +136,7 @@ import { useSpeech } from '../../composables/useSpeech'
 import { useAssistant } from '../../composables/useAssistant'
 
 const { handle } = useAssistant()
-const { isSupported, ttsSupported, isListening, transcript, muted, start, stop, onResult, speak, cancelSpeak, toggleMute } =
+const { isSupported, ttsSupported, isListening, transcript, muted, error: speechError, start, stop, onResult, speak, cancelSpeak, toggleMute } =
   useSpeech()
 
 const isOpen = ref(false)

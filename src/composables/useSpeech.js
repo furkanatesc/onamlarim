@@ -13,6 +13,24 @@ export function useSpeech({ lang = 'tr-TR' } = {}) {
   const isListening = ref(false)
   const transcript = ref('')
   const muted = ref(false)
+  const error = ref('')
+
+  // SpeechRecognition hata kodlarını kullanıcıya gösterilecek Türkçe mesaja çevir.
+  function errorMessage(code) {
+    switch (code) {
+      case 'not-allowed':
+      case 'service-not-allowed':
+        return 'Mikrofon izni verilmedi. Tarayıcı/site ayarlarından izin verin.'
+      case 'audio-capture':
+        return 'Mikrofon bulunamadı.'
+      case 'no-speech':
+        return 'Ses algılanmadı, tekrar deneyin.'
+      case 'network':
+        return 'Ağ hatası — ses tanıma kullanılamıyor.'
+      default:
+        return 'Ses tanıma başlatılamadı (tarayıcı desteklemiyor olabilir).'
+    }
+  }
 
   // Türkçe ses async yüklenir (Chrome ilk çağrıda boş döner) → önceden ısıt
   let trVoice = null
@@ -47,7 +65,8 @@ export function useSpeech({ lang = 'tr-TR' } = {}) {
       transcript.value = (final || interim).trim()
       if (final && resultCallback) resultCallback(final.trim())
     }
-    recognition.onerror = () => {
+    recognition.onerror = (event) => {
+      error.value = errorMessage(event && event.error)
       isListening.value = false
     }
     recognition.onend = () => {
@@ -58,10 +77,13 @@ export function useSpeech({ lang = 'tr-TR' } = {}) {
   function start() {
     if (!recognition || isListening.value) return
     transcript.value = ''
+    error.value = ''
     try {
       recognition.start()
       isListening.value = true
     } catch {
+      // iOS Safari sıklıkla InvalidStateError fırlatır
+      error.value = errorMessage()
       isListening.value = false
     }
   }
@@ -123,6 +145,7 @@ export function useSpeech({ lang = 'tr-TR' } = {}) {
     isListening,
     transcript,
     muted,
+    error,
     start,
     stop,
     onResult,
