@@ -22,8 +22,8 @@
     <div
       v-if="isOpen"
       class="fixed z-40 flex flex-col overflow-hidden rounded-3xl border border-white/60 bg-white/85 backdrop-blur-2xl shadow-[0_24px_70px_-12px_rgba(15,23,42,0.28)]
-             inset-x-3 bottom-3 top-16
-             sm:inset-auto sm:bottom-6 sm:right-6 sm:top-auto sm:w-[370px] sm:h-[540px]"
+             inset-x-3 bottom-3 h-[60svh] max-h-[480px]
+             sm:inset-auto sm:bottom-6 sm:right-6 sm:top-auto sm:w-[370px] sm:h-[540px] sm:max-h-none"
     >
       <!-- Header -->
       <header class="flex items-center gap-3 px-4 py-3 border-b border-white/60 bg-white/40">
