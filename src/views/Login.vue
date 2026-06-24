@@ -16,7 +16,7 @@
         @canplay="videoReady = true"
         @error="videoOk = false"
       >
-        <source src="/login-curtain2.mp4" type="video/mp4" />
+        <source src="/login-curtain-hd.mp4" type="video/mp4" />
       </video>
       <div class="absolute inset-0 bg-white/10 pointer-events-none"></div>
       <div class="bg-noise opacity-[0.03] mix-blend-multiply absolute inset-0 pointer-events-none"></div>
