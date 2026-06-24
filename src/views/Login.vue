@@ -125,7 +125,7 @@
       <!-- Doktor kartı: SOL ÜST, soldan gelir -->
       <div
         class="absolute top-8 left-8 sm:top-12 sm:left-12 w-32 sm:w-44 aspect-[3/4] rounded-[24px] overflow-hidden emboss-raised bg-white ring-1 ring-[#088496]/15 transform-gpu will-change-transform transition-[opacity,transform] duration-[850ms] delay-[400ms] ease-[cubic-bezier(.22,1,.36,1)]"
-        :class="revealing ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-16 pointer-events-none'"
+        :class="revealActive ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-16 pointer-events-none'"
       >
         <img
           src="/dr-muge.jpg"
@@ -144,7 +144,7 @@
       <!-- Okul amblemi kartı: SAĞ ALT, sağdan gelir -->
       <div
         class="absolute bottom-8 right-8 sm:bottom-12 sm:right-12 bg-white/15 backdrop-blur-xl border border-white/40 rounded-3xl shadow-[0_8px_30px_-8px_rgba(15,23,42,0.12)] px-5 sm:px-6 py-4 sm:py-5 flex flex-col items-center text-center transform-gpu will-change-transform transition-[opacity,transform] duration-[850ms] delay-[700ms] ease-[cubic-bezier(.22,1,.36,1)]"
-        :class="revealing ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-16 pointer-events-none'"
+        :class="revealActive ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-16 pointer-events-none'"
       >
         <img
           src="/istanbul-tip-amblem.png"
@@ -161,7 +161,7 @@
       <!-- Hoş geldiniz: merkez, kurumsal teal -->
       <p
         class="absolute inset-0 flex items-center justify-center text-3xl sm:text-4xl font-serif-italic text-[#088496] pointer-events-none transition-all duration-700 delay-[1100ms]"
-        :class="revealing ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'"
+        :class="revealActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'"
       >
         Hoş geldiniz
       </p>
@@ -182,6 +182,7 @@ const username = ref('')
 const password = ref('')
 const isLoading = ref(false)
 const revealing = ref(false)
+const revealActive = ref(false)
 const videoOk = ref(true)
 const videoReady = ref(false)
 const emblemOk = ref(true)
@@ -215,6 +216,11 @@ function handleLogin() {
     isLoading.value = false
     revealing.value = true
     localStorage.setItem('onamlarim_token', 'demo-token')
+    // Reveal sahnesini önce yerleştir/boyat (mobilde -z-10 ile gizli olduğu için
+    // start state commit edilmiyordu); kartların geçişini bir sonraki frame'de tetikle.
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => { revealActive.value = true })
+    })
     redirectTimer = setTimeout(() => router.push('/dashboard/overview'), 3000)
   }, 700)
 }
