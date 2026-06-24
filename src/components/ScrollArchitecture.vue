@@ -248,9 +248,20 @@ onMounted(() => {
     return
   }
   if (isMobile) {
-    // Mobilde frame-extraction ağır → canlı video seek (scroll'a bağlı) kullan
-    rafId = requestAnimationFrame(tick)
-    startSeekFallback()
+    // Mobilde scroll-seek güvenilmez (decode/ızgara artefaktı, donma) →
+    // videoyu ambient loop oynat (scroll'a bağlı değil)
+    const v = videoRef.value
+    if (v) {
+      mode.value = 'seek' // video elementini göster
+      v.loop = true
+      v.play().catch(() => {
+        mode.value = 'svg'
+        progress.value = 1
+      })
+    } else {
+      mode.value = 'svg'
+      progress.value = 1
+    }
     return
   }
   const c = canvasRef.value

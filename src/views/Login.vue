@@ -26,7 +26,8 @@
     <aside
       class="relative z-20 w-full lg:w-[440px] min-h-[100svh] lg:min-h-0 lg:h-screen shrink-0 flex flex-col justify-center px-6 sm:px-14 py-12
              bg-white/10 backdrop-blur-2xl border-b lg:border-b-0 lg:border-r border-white/40
-             shadow-[8px_0_40px_-12px_rgba(15,23,42,0.06)]"
+             shadow-[8px_0_40px_-12px_rgba(15,23,42,0.06)] transition-opacity duration-700"
+      :class="revealing ? 'opacity-0 pointer-events-none lg:opacity-100 lg:pointer-events-auto' : 'opacity-100'"
     >
       <div class="bg-noise opacity-[0.03] mix-blend-multiply absolute inset-0 pointer-events-none"></div>
 
@@ -116,10 +117,10 @@
 
     <!-- ============ SAĞ: İçerik / reveal sahnesi ============ -->
     <main
-      class="relative flex-col items-center justify-center px-8 py-12 overflow-hidden"
+      class="flex-col items-center justify-center px-8 py-12 overflow-hidden"
       :class="revealing
         ? 'fixed inset-0 z-50 flex lg:relative lg:inset-auto lg:z-10 lg:flex-1'
-        : 'hidden lg:flex lg:flex-1'"
+        : 'relative hidden lg:flex lg:flex-1'"
     >
       <!-- Doktor kartı: SOL ÜST, yukarıdan iner -->
       <div
