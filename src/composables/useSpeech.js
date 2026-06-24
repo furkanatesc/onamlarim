@@ -19,8 +19,9 @@ export function useSpeech({ lang = 'tr-TR' } = {}) {
   function errorMessage(code) {
     switch (code) {
       case 'not-allowed':
+        return 'Mikrofon izni verilmedi. Adres çubuğundaki “aA” → Web Sitesi Ayarları → Mikrofon’dan izin verip sayfayı yenileyin.'
       case 'service-not-allowed':
-        return 'Mikrofon izni verilmedi. Tarayıcı/site ayarlarından izin verin.'
+        return 'Sesli giriş kapalı. iOS’ta Ayarlar → Genel → Klavye → “Dikte”yi açın.'
       case 'audio-capture':
         return 'Mikrofon bulunamadı.'
       case 'no-speech':
@@ -74,10 +75,21 @@ export function useSpeech({ lang = 'tr-TR' } = {}) {
     }
   }
 
-  function start() {
+  async function start() {
     if (!recognition || isListening.value) return
     transcript.value = ''
     error.value = ''
+    // Mikrofon iznini açıkça iste — iOS/mobil Safari, SpeechRecognition'ı çoğu
+    // zaman izin istemeden reddediyor (not-allowed). getUserMedia native promptu açar.
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
+        stream.getTracks().forEach((t) => t.stop()) // sadece izin için; akışı kullanmıyoruz
+      } catch {
+        error.value = errorMessage('not-allowed')
+        return
+      }
+    }
     try {
       recognition.start()
       isListening.value = true
