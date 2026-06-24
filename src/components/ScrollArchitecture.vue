@@ -71,6 +71,7 @@ let framesReady = false
 let lastIdx = -1
 let rafId = null
 let lastProgress = -1
+let totalFrames = 0
 
 const reduced =
   typeof matchMedia !== 'undefined' &&
@@ -160,6 +161,7 @@ async function extractFrames() {
     const w = Math.round(v.videoWidth * scale)
     const h = Math.round(v.videoHeight * scale)
     const count = Math.max(30, Math.min(120, Math.round(v.duration * 24)))
+    totalFrames = count
     for (let i = 0; i < count; i++) {
       v.currentTime = (i / (count - 1)) * (v.duration - 0.05)
       await new Promise((ok, no) => {
@@ -174,12 +176,14 @@ async function extractFrames() {
         }, 4000)
       })
       frames.push(await createImageBitmap(v, { resizeWidth: w, resizeHeight: h }))
+      
+      if (i === 0) {
+        framesReady = true
+        mode.value = 'frames'
+      }
     }
     URL.revokeObjectURL(url)
-    if (frames.length) {
-      framesReady = true
-      mode.value = 'frames'
-    } else {
+    if (!frames.length) {
       throw new Error('no frames')
     }
   } catch (e) {
@@ -214,28 +218,32 @@ function startSeekFallback() {
 }
 
 function tick() {
-  // Sadece scroll ilerlemesi değiştiğinde iş yap (boştayken bedava rAF)
   const p = getProgress()
-  if (p !== lastProgress) {
-    lastProgress = p
-    progress.value = p
-    if (mode.value === 'frames' && framesReady && frames.length) {
-      const idx = Math.round(p * (frames.length - 1))
-      if (idx !== lastIdx) {
-        lastIdx = idx
-        if (frames[idx]) drawFrame(frames[idx])
-      }
-    } else if (mode.value === 'seek') {
+  progress.value = p
+
+  if (mode.value === 'frames' && framesReady && frames.length) {
+    // Toplam karelere göre hedef indeksi hesapla, henüz yüklenmediyse en son yüklenen kareyi göster.
+    const targetIdx = Math.round(p * (totalFrames - 1))
+    const idx = Math.min(targetIdx, frames.length - 1)
+    
+    // Hem scroll değiştiğinde hem de yeni kare yüklendiğinde canvas'ı güncelle
+    if (idx !== lastIdx) {
+      lastIdx = idx
+      if (frames[idx]) drawFrame(frames[idx])
+    }
+  } else if (mode.value === 'seek') {
+    if (p !== lastProgress) {
       const v = videoRef.value
       if (v && v.duration && isFinite(v.duration) && v.readyState >= 1) {
         const target = p * v.duration
-        // Native v.seeking kullan → düşen 'seeked' eventinde kilitlenmez
         if (!v.seeking && Math.abs(v.currentTime - target) > 0.05) {
           v.currentTime = target
         }
       }
     }
   }
+
+  lastProgress = p
   rafId = requestAnimationFrame(tick)
 }
 
