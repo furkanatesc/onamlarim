@@ -27,7 +27,7 @@
       class="relative z-20 w-full lg:w-[440px] min-h-[100svh] lg:min-h-0 lg:h-screen shrink-0 flex flex-col justify-center px-6 sm:px-14 py-12
              bg-white/10 backdrop-blur-2xl border-b lg:border-b-0 lg:border-r border-white/40
              shadow-[8px_0_40px_-12px_rgba(15,23,42,0.06)] transform-gpu transition-[opacity,transform] duration-[800ms] ease-[cubic-bezier(.22,1,.36,1)]"
-      :class="revealing ? 'opacity-0 -translate-y-8 lg:opacity-100 lg:translate-y-0 pointer-events-none lg:pointer-events-auto' : 'opacity-100 translate-y-0'"
+      :class="revealing ? '-translate-y-full lg:translate-y-0 pointer-events-none lg:pointer-events-auto' : 'translate-y-0'"
     >
       <div class="bg-noise opacity-[0.03] mix-blend-multiply absolute inset-0 pointer-events-none"></div>
 
