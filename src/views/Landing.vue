@@ -4,32 +4,7 @@
     <ScrollArchitecture />
 
     <!-- Navigation (glass on paper) -->
-    <header
-      class="fixed top-0 inset-x-0 z-50 h-16 px-6 lg:px-16 flex items-center justify-between bg-white/10 backdrop-blur-md border-b border-white/20"
-    >
-      <div class="flex items-center gap-3">
-        <div class="emboss-raised flex items-center justify-center w-11 h-11 rounded-xl bg-white text-[#088496]">
-          <BrandMark class="w-9 h-9" />
-        </div>
-        <div>
-          <span class="text-sm font-bold text-slate-900 tracking-tight">Onamlarım</span>
-          <span class="text-[9px] font-extrabold text-[#088496] tracking-widest uppercase ml-1.5">ERP</span>
-        </div>
-      </div>
-
-      <nav class="hidden md:flex items-center gap-1 emboss-inset rounded-full px-2 py-1.5 bg-white/60">
-        <a v-for="link in navLinks" :key="link" href="#features" class="px-3.5 py-1 rounded-full text-xs font-semibold text-slate-500 hover:text-slate-900 transition-colors">
-          {{ link }}
-        </a>
-      </nav>
-
-      <router-link
-        to="/login"
-        class="px-4 py-2 bg-[#088496] text-white rounded-xl text-xs font-bold hover:bg-[#066b7a] shadow-md shadow-[#08849640] hover:-translate-y-0.5 transition-all"
-      >
-        Sisteme Giriş Yap
-      </router-link>
-    </header>
+    <SiteHeader />
 
     <!-- HERO -->
     <section class="relative z-10 min-h-[100svh] flex flex-col items-center text-center px-6 pt-32 pb-24">
@@ -157,12 +132,7 @@
       </section>
 
       <!-- FOOTER -->
-      <footer class="mt-28 py-12 text-center">
-        <div class="mx-auto mb-8 h-px w-40 bg-gradient-to-r from-transparent via-slate-300/50 to-transparent"></div>
-        <p class="text-[10px] uppercase tracking-widest text-slate-400 font-semibold">
-          © 2026 Onamlarım Medical ERP — Tüm hakları saklıdır.
-        </p>
-      </footer>
+      <SiteFooter />
     </div>
   </div>
 </template>
@@ -170,13 +140,12 @@
 <script setup>
 import { ArrowRight, Play, ChevronDown, FileSignature, RefreshCw, ShieldCheck, Lock, Activity } from '@lucide/vue'
 import ScrollArchitecture from '../components/ScrollArchitecture.vue'
-import BrandMark from '../components/icons/BrandMark.vue'
+import SiteHeader from '../components/site/SiteHeader.vue'
+import SiteFooter from '../components/site/SiteFooter.vue'
 import IconConsent from '../components/icons/IconConsent.vue'
 import IconMhrs from '../components/icons/IconMhrs.vue'
 import IconStock from '../components/icons/IconStock.vue'
 import IconCrm from '../components/icons/IconCrm.vue'
-
-const navLinks = ['Platform', 'Özellikler', 'MHRS', 'Fiyatlandırma']
 
 const trust = [
   { icon: RefreshCw, label: 'MHRS Uyumlu' },

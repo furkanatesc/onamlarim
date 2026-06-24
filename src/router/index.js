@@ -12,6 +12,16 @@ const routes = [
     component: () => import('../views/Login.vue')
   },
   {
+    path: '/kutuphane',
+    name: 'Kutuphane',
+    component: () => import('../views/Kutuphane.vue')
+  },
+  {
+    path: '/fiyatlandirma',
+    name: 'Fiyatlandirma',
+    component: () => import('../views/Fiyatlandirma.vue')
+  },
+  {
     path: '/dashboard',
     component: () => import('../layouts/MainLayout.vue'),
     redirect: '/dashboard/overview',
@@ -58,7 +68,8 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
-  scrollBehavior() {
+  scrollBehavior(to) {
+    if (to.hash) return { el: to.hash, top: 80, behavior: 'smooth' }
     return { top: 0 }
   }
 })
