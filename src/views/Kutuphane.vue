@@ -16,19 +16,30 @@
         </p>
       </header>
 
-      <!-- ====== Kategori filtreleri ====== -->
-      <div class="mt-8 flex flex-wrap gap-2">
-        <button
-          v-for="c in categories"
-          :key="c"
-          @click="active = c"
-          class="px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all"
-          :class="active === c
-            ? 'bg-[#E8755D] text-white shadow-sm shadow-[#E8755D]/30'
-            : 'emboss-inset bg-white/60 text-slate-500 hover:text-slate-900'"
-        >
-          {{ c }}
-        </button>
+      <!-- ====== Kategori filtreleri + arama ====== -->
+      <div class="mt-8 flex flex-col sm:flex-row sm:items-center gap-3 sm:justify-between">
+        <div class="flex flex-wrap gap-2">
+          <button
+            v-for="c in categories"
+            :key="c"
+            @click="active = c"
+            class="px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all"
+            :class="active === c
+              ? 'bg-[#E8755D] text-white shadow-sm shadow-[#E8755D]/30'
+              : 'emboss-inset bg-white/60 text-slate-500 hover:text-slate-900'"
+          >
+            {{ c }}
+          </button>
+        </div>
+        <div class="relative sm:w-64 shrink-0">
+          <Search class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
+          <input
+            v-model="query"
+            type="search"
+            placeholder="Yazılarda ara…"
+            class="w-full emboss-inset bg-white rounded-full pl-9 pr-4 py-2 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#088496]/20"
+          />
+        </div>
       </div>
 
       <!-- ====== Öne çıkan yazı ====== -->
@@ -60,7 +71,7 @@
       </article>
 
       <!-- ====== Yazı listesi (dergi içindekiler düzeni) ====== -->
-      <section class="mt-14">
+      <section v-if="rest.length" class="mt-14">
         <p class="text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-2">Tüm yazılar</p>
         <ul>
           <li v-for="a in rest" :key="a.title">
@@ -79,10 +90,22 @@
             </a>
           </li>
         </ul>
-        <p v-if="!rest.length && !featured" class="py-16 text-center text-sm text-slate-400">
-          Bu kategoride henüz yazı yok.
-        </p>
       </section>
+
+      <!-- ====== Sonuç yok ====== -->
+      <div v-if="!filtered.length" class="py-20 text-center">
+        <p class="text-sm text-slate-500">
+          <template v-if="query">“{{ query }}” için sonuç bulunamadı.</template>
+          <template v-else>Bu kategoride yazı yok.</template>
+        </p>
+        <button
+          v-if="query || active !== 'Tümü'"
+          @click="query = ''; active = 'Tümü'"
+          class="mt-3 text-xs font-bold text-[#088496] hover:underline"
+        >
+          Filtreleri temizle
+        </button>
+      </div>
 
       <!-- ====== Bülten kaydı ====== -->
       <section class="mt-16 emboss-inset rounded-3xl bg-white px-8 py-10 sm:flex items-center justify-between gap-8">
@@ -110,12 +133,13 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-import { ArrowRight, BookOpen } from '@lucide/vue'
+import { ArrowRight, BookOpen, Search } from '@lucide/vue'
 import SiteHeader from '../components/site/SiteHeader.vue'
 import SiteFooter from '../components/site/SiteFooter.vue'
 
 const categories = ['Tümü', 'Mevzuat', 'Dijital Onam', 'MHRS', 'Klinik Yönetimi']
 const active = ref('Tümü')
+const query = ref('')
 
 const articles = [
   { category: 'Dijital Onam', title: 'Kağıt onamdan dijitale geçişte 7 adım', excerpt: 'Kliniğinizde ıslak imzayı yasal dijital imzayla değiştirirken izlemeniz gereken pratik yol haritası.', date: '12 Haz 2026', read: '6 dk' },
@@ -126,9 +150,14 @@ const articles = [
   { category: 'Mevzuat', title: 'e-İmzanın hukuki geçerliliği: bilmeniz gerekenler', excerpt: 'Zaman damgası, kimlik doğrulama ve uyuşmazlık halinde ispat yükü.', date: '22 Nis 2026', read: '7 dk' },
 ]
 
-const filtered = computed(() =>
-  active.value === 'Tümü' ? articles : articles.filter((a) => a.category === active.value)
-)
+const filtered = computed(() => {
+  const q = query.value.trim().toLocaleLowerCase('tr')
+  return articles.filter((a) => {
+    const inCat = active.value === 'Tümü' || a.category === active.value
+    const inQuery = !q || `${a.title} ${a.excerpt} ${a.category}`.toLocaleLowerCase('tr').includes(q)
+    return inCat && inQuery
+  })
+})
 const featured = computed(() => filtered.value[0] || null)
 const rest = computed(() => filtered.value.slice(1))
 </script>
