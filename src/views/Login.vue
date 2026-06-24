@@ -101,8 +101,7 @@
           :disabled="isLoading || revealing"
           class="w-full py-3 bg-[#088496] text-white rounded-xl text-sm font-bold hover:bg-[#066b7a] shadow-md shadow-[#088496]/25 disabled:opacity-60 disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
         >
-          <span v-if="isLoading" class="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
-          <template v-else-if="revealing">Hoş geldiniz…</template>
+          <span v-if="isLoading || revealing" class="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
           <template v-else>Sisteme Giriş Yap <ArrowRight class="w-4 h-4" /></template>
         </button>
       </form>

@@ -11,12 +11,9 @@
           Klinik dijitalleşmesi üzerine
           <span class="font-serif-italic font-normal">rehberler</span> ve notlar
         </h1>
-        <div class="mt-5 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] uppercase tracking-widest text-slate-400 font-semibold">
-          <span>Mevzuat</span><span class="text-slate-300">·</span>
-          <span>Dijital Onam</span><span class="text-slate-300">·</span>
-          <span>MHRS</span><span class="text-slate-300">·</span>
-          <span>Klinik Yönetimi</span>
-        </div>
+        <p class="mt-4 text-sm text-slate-500 max-w-xl">
+          Mevzuat, dijital onam ve klinik operasyonu üzerine uygulamaya dönük yazılar.
+        </p>
       </header>
 
       <!-- ====== Kategori filtreleri ====== -->
