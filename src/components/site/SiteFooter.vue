@@ -44,9 +44,9 @@ const columns = [
   {
     title: 'Ürün',
     links: [
-      { label: 'Özellikler', to: '/#features' },
+      { label: 'Özellikler', to: '/ozellikler' },
       { label: 'Fiyatlandırma', to: '/fiyatlandirma' },
-      { label: 'Platform', to: '/#features' },
+      { label: 'Platform', to: '/platform' },
     ],
   },
   {

@@ -83,13 +83,12 @@ defineProps({ variant: { type: String, default: 'transparent' } })
 const route = useRoute()
 const open = ref(false)
 const nav = [
-  { label: 'Platform', to: '/#features' },
-  { label: 'Özellikler', to: '/#features' },
+  { label: 'Platform', to: '/platform' },
+  { label: 'Özellikler', to: '/ozellikler' },
   { label: 'Kütüphane', to: '/kutuphane' },
   { label: 'Fiyatlandırma', to: '/fiyatlandirma' },
 ]
-// Yalnızca gerçek sayfalarda (hash'siz route) aktif vurgu göster
 function isActive(item) {
-  return !item.to.includes('#') && route.path === item.to
+  return route.path === item.to
 }
 </script>

@@ -22,6 +22,16 @@ const routes = [
     component: () => import('../views/Fiyatlandirma.vue')
   },
   {
+    path: '/ozellikler',
+    name: 'Ozellikler',
+    component: () => import('../views/Ozellikler.vue')
+  },
+  {
+    path: '/platform',
+    name: 'Platform',
+    component: () => import('../views/Platform.vue')
+  },
+  {
     path: '/dashboard',
     component: () => import('../layouts/MainLayout.vue'),
     redirect: '/dashboard/overview',
