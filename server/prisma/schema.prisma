@@ -1,0 +1,53 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  DOCTOR
+  STAFF
+}
+
+enum ConsentStatus {
+  PENDING
+  SIGNED
+}
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  role         Role     @default(STAFF)
+  createdAt    DateTime @default(now())
+}
+
+model Patient {
+  id        String    @id @default(uuid())
+  name      String
+  tcNo      String    @unique
+  phone     String?
+  email     String?
+  bloodType String?
+  status    String    @default("Active")
+  createdAt DateTime  @default(now())
+  consents  Consent[]
+}
+
+model Consent {
+  id            String        @id @default(uuid())
+  patientId     String
+  patient       Patient       @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  procedure     String
+  doctorName    String
+  status        ConsentStatus @default(PENDING)
+  signatureData String?
+  pdfPath       String?
+  signedAt      DateTime?
+  createdAt     DateTime      @default(now())
+}
