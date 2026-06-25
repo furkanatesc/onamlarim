@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: onamlarim-postgres
+    environment:
+      POSTGRES_USER: onamlarim
+      POSTGRES_PASSWORD: onamlarim
+      POSTGRES_DB: onamlarim
+    ports:
+      - "5432:5432"
+    volumes:
+      - onamlarim_pgdata:/var/lib/postgresql/data
+      - ./docker/init-test-db.sql:/docker-entrypoint-initdb.d/init-test-db.sql
+volumes:
+  onamlarim_pgdata:
