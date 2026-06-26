@@ -33,3 +33,36 @@ describe('Auth — register (e2e)', () => {
     expect(res.status).toBe(400);
   });
 });
+
+describe('Auth — login (e2e)', () => {
+  let app: INestApplication;
+  beforeAll(async () => { app = await createTestApp(); });
+  beforeEach(async () => { await resetDb(); });
+  afterAll(async () => { await app.close(); });
+
+  async function registerUser() {
+    await request(app.getHttpServer())
+      .post('/api/auth/register')
+      .send({ email: 'login@onamlarim.com', password: 'secret123', name: 'Login User' });
+  }
+
+  it('returns access + refresh tokens for valid credentials', async () => {
+    await registerUser();
+    const res = await request(app.getHttpServer())
+      .post('/api/auth/login')
+      .send({ email: 'login@onamlarim.com', password: 'secret123' });
+    expect(res.status).toBe(200);
+    expect(typeof res.body.accessToken).toBe('string');
+    expect(typeof res.body.refreshToken).toBe('string');
+    expect(res.body.user.email).toBe('login@onamlarim.com');
+    expect(res.body.user.passwordHash).toBeUndefined();
+  });
+
+  it('rejects wrong password with 401', async () => {
+    await registerUser();
+    const res = await request(app.getHttpServer())
+      .post('/api/auth/login')
+      .send({ email: 'login@onamlarim.com', password: 'wrongpass' });
+    expect(res.status).toBe(401);
+  });
+});
