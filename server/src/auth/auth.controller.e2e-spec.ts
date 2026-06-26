@@ -66,3 +66,43 @@ describe('Auth — login (e2e)', () => {
     expect(res.status).toBe(401);
   });
 });
+
+describe('Auth — protected + refresh (e2e)', () => {
+  let app: INestApplication;
+  beforeAll(async () => { app = await createTestApp(); });
+  beforeEach(async () => { await resetDb(); });
+  afterAll(async () => { await app.close(); });
+
+  async function loginTokens() {
+    await request(app.getHttpServer())
+      .post('/api/auth/register')
+      .send({ email: 'me@onamlarim.com', password: 'secret123', name: 'Me User' });
+    const res = await request(app.getHttpServer())
+      .post('/api/auth/login')
+      .send({ email: 'me@onamlarim.com', password: 'secret123' });
+    return res.body as { accessToken: string; refreshToken: string };
+  }
+
+  it('rejects /auth/me without a token', async () => {
+    const res = await request(app.getHttpServer()).get('/api/auth/me');
+    expect(res.status).toBe(401);
+  });
+
+  it('returns the current user with a valid token', async () => {
+    const { accessToken } = await loginTokens();
+    const res = await request(app.getHttpServer())
+      .get('/api/auth/me')
+      .set('Authorization', `Bearer ${accessToken}`);
+    expect(res.status).toBe(200);
+    expect(res.body.email).toBe('me@onamlarim.com');
+  });
+
+  it('issues new tokens from a valid refresh token', async () => {
+    const { refreshToken } = await loginTokens();
+    const res = await request(app.getHttpServer())
+      .post('/api/auth/refresh')
+      .send({ refreshToken });
+    expect(res.status).toBe(200);
+    expect(typeof res.body.accessToken).toBe('string');
+  });
+});

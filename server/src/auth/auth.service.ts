@@ -46,4 +46,17 @@ export class AuthService {
     });
     return { accessToken, refreshToken };
   }
+
+  async refresh(refreshToken: string): Promise<Tokens> {
+    try {
+      const payload = await this.jwt.verifyAsync<{ sub: string; email: string; role: Role }>(
+        refreshToken, { secret: env.jwtRefreshSecret },
+      );
+      const user = await this.users.findById(payload.sub);
+      if (!user) throw new UnauthorizedException('Invalid refresh token');
+      return this.signTokens(user);
+    } catch {
+      throw new UnauthorizedException('Invalid refresh token');
+    }
+  }
 }
