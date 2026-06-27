@@ -2,10 +2,14 @@ import { BadRequestException, Injectable, NotFoundException } from '@nestjs/comm
 import { Prisma, Consent, ConsentStatus } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateConsentDto } from './dto/create-consent.dto';
+import { PdfService } from './pdf.service';
 
 @Injectable()
 export class ConsentsService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly pdf: PdfService,
+  ) {}
 
   async create(dto: CreateConsentDto): Promise<Consent> {
     try {
@@ -29,10 +33,17 @@ export class ConsentsService {
   }
 
   async sign(id: string, signatureData: string): Promise<Consent> {
+    const consent = await this.findOne(id); // throws 404 if missing at read time
+    const pdfPath = await this.pdf.generateConsentPdf({
+      id: consent.id,
+      procedure: consent.procedure,
+      doctorName: consent.doctorName,
+      signatureData,
+    });
     try {
       return await this.prisma.consent.update({
         where: { id },
-        data: { status: ConsentStatus.SIGNED, signatureData, signedAt: new Date() },
+        data: { status: ConsentStatus.SIGNED, signatureData, signedAt: new Date(), pdfPath },
       });
     } catch (e) {
       if (e instanceof Prisma.PrismaClientKnownRequestError && e.code === 'P2025') {

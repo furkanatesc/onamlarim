@@ -52,6 +52,7 @@ describe('Consents (e2e)', () => {
     expect(signed.status).toBe(200);
     expect(signed.body.status).toBe('SIGNED');
     expect(signed.body.signedAt).not.toBeNull();
+    expect(signed.body.pdfPath).toBe(`storage/consents/${created.body.id}.pdf`);
   });
 
   it('lists consents', async () => {
