@@ -1,5 +1,7 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { Prisma, Consent, ConsentStatus } from '@prisma/client';
+import { createReadStream, existsSync, ReadStream } from 'fs';
+import { join } from 'path';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateConsentDto } from './dto/create-consent.dto';
 import { PdfService } from './pdf.service';
@@ -30,6 +32,14 @@ export class ConsentsService {
     const consent = await this.prisma.consent.findUnique({ where: { id } });
     if (!consent) throw new NotFoundException('Consent not found');
     return consent;
+  }
+
+  async getPdf(id: string): Promise<{ stream: ReadStream; filename: string }> {
+    const consent = await this.findOne(id); // throws 404 if the consent is missing
+    if (!consent.pdfPath) throw new NotFoundException('Consent PDF not found');
+    const absPath = join(process.cwd(), consent.pdfPath);
+    if (!existsSync(absPath)) throw new NotFoundException('Consent PDF not found');
+    return { stream: createReadStream(absPath), filename: `${consent.id}.pdf` };
   }
 
   async sign(id: string, signatureData: string): Promise<Consent> {

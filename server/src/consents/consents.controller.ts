@@ -1,5 +1,6 @@
-import { Body, Controller, Get, HttpCode, Param, ParseUUIDPipe, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Header, HttpCode, Param, ParseUUIDPipe, Post, Res, UseGuards } from '@nestjs/common';
 import { Consent } from '@prisma/client';
+import type { Response } from 'express';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { ConsentsService } from './consents.service';
 import { CreateConsentDto } from './dto/create-consent.dto';
@@ -29,5 +30,17 @@ export class ConsentsController {
   @HttpCode(200)
   sign(@Param('id', ParseUUIDPipe) id: string, @Body() dto: SignConsentDto): Promise<Consent> {
     return this.consents.sign(id, dto.signatureData);
+  }
+
+  @Get(':id/pdf')
+  @Header('Content-Type', 'application/pdf')
+  async getPdf(@Param('id', ParseUUIDPipe) id: string, @Res() res: Response): Promise<void> {
+    const { stream, filename } = await this.consents.getPdf(id);
+    res.setHeader('Content-Disposition', `inline; filename="${filename}"`);
+    stream.on('error', () => {
+      if (!res.headersSent) res.status(500).end();
+      else res.end();
+    });
+    stream.pipe(res);
   }
 }

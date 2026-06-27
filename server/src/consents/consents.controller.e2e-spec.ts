@@ -96,4 +96,30 @@ describe('Consents (e2e)', () => {
       .send({ patientId: NONEXISTENT_ID, procedure: 'Histeroskopi', doctorName: 'Dr. Müge Ateş Tıkız' });
     expect(res.status).toBe(400);
   });
+
+  it('downloads the PDF of a signed consent', async () => {
+    const created = await request(app.getHttpServer())
+      .post('/api/consents').set(auth())
+      .send({ patientId, procedure: 'Histeroskopi', doctorName: 'Dr. Müge Ateş Tıkız' });
+    await request(app.getHttpServer())
+      .post(`/api/consents/${created.body.id}/sign`).set(auth())
+      .send({ signatureData: SIGNATURE });
+    const res = await request(app.getHttpServer())
+      .get(`/api/consents/${created.body.id}/pdf`).set(auth());
+    expect(res.status).toBe(200);
+    expect(res.headers['content-type']).toContain('application/pdf');
+    expect(res.body.length).toBeGreaterThan(0);
+  });
+
+  it('returns 404 for the PDF of a nonexistent consent', async () => {
+    const res = await request(app.getHttpServer())
+      .get('/api/consents/00000000-0000-0000-0000-000000000000/pdf').set(auth());
+    expect(res.status).toBe(404);
+  });
+
+  it('rejects unauthenticated PDF download with 401', async () => {
+    const res = await request(app.getHttpServer())
+      .get('/api/consents/00000000-0000-0000-0000-000000000000/pdf');
+    expect(res.status).toBe(401);
+  });
 });
