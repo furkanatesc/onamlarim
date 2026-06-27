@@ -7,6 +7,7 @@ import { env } from './config/env';
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api');
+  app.enableCors({ origin: ['http://localhost:5173'], credentials: true });
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
   await app.listen(env.port);
 }
