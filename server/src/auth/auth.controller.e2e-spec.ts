@@ -106,3 +106,38 @@ describe('Auth — protected + refresh (e2e)', () => {
     expect(typeof res.body.accessToken).toBe('string');
   });
 });
+
+// Cross-token misuse: the two JWT secrets must be isolated — tokens signed for
+// one purpose must be rejected by the other endpoint.
+describe('Auth — cross-token misuse (e2e)', () => {
+  let app: INestApplication;
+  beforeAll(async () => { app = await createTestApp(); });
+  beforeEach(async () => { await resetDb(); });
+  afterAll(async () => { await app.close(); });
+
+  async function getTokens() {
+    await request(app.getHttpServer())
+      .post('/api/auth/register')
+      .send({ email: 'xtoken@onamlarim.com', password: 'secret123', name: 'X Token' });
+    const res = await request(app.getHttpServer())
+      .post('/api/auth/login')
+      .send({ email: 'xtoken@onamlarim.com', password: 'secret123' });
+    return res.body as { accessToken: string; refreshToken: string };
+  }
+
+  it('rejects a refresh token used as a Bearer on /auth/me with 401', async () => {
+    const { refreshToken } = await getTokens();
+    const res = await request(app.getHttpServer())
+      .get('/api/auth/me')
+      .set('Authorization', `Bearer ${refreshToken}`);
+    expect(res.status).toBe(401);
+  });
+
+  it('rejects an access token submitted to /auth/refresh with 401', async () => {
+    const { accessToken } = await getTokens();
+    const res = await request(app.getHttpServer())
+      .post('/api/auth/refresh')
+      .send({ refreshToken: accessToken });
+    expect(res.status).toBe(401);
+  });
+});

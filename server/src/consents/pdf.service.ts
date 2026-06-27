@@ -15,11 +15,11 @@ export class PdfService {
   private readonly dir = join(process.cwd(), 'storage', 'consents');
 
   generateConsentPdf(consent: ConsentPdfInput): Promise<string> {
-    mkdirSync(this.dir, { recursive: true });
     const absPath = join(this.dir, `${consent.id}.pdf`);
     const relPath = `storage/consents/${consent.id}.pdf`;
 
     return new Promise<string>((resolve, reject) => {
+      mkdirSync(this.dir, { recursive: true });
       const doc = new PDFDocument({ size: 'A4', margin: 50 });
       const stream = createWriteStream(absPath);
       doc.pipe(stream);
@@ -28,9 +28,9 @@ export class PdfService {
       doc.text(`İşlem: ${consent.procedure}`);
       doc.text(`Hekim: ${consent.doctorName}`);
       doc.moveDown().text(consent.signatureData ? 'İmzalanmıştır.' : 'İmza bekliyor.');
-      doc.end();
       stream.on('finish', () => resolve(relPath));
       stream.on('error', reject);
+      doc.end();
     });
   }
 }

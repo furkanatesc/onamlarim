@@ -48,6 +48,7 @@ export class AuthService {
   }
 
   async refresh(refreshToken: string): Promise<Tokens> {
+    // Intentionally collapses all verify/lookup failures to 401 — no detail leaked to callers.
     try {
       const payload = await this.jwt.verifyAsync<{ sub: string; email: string; role: Role }>(
         refreshToken, { secret: env.jwtRefreshSecret },

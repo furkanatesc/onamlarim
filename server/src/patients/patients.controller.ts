@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseUUIDPipe, Post, UseGuards } from '@nestjs/common';
 import { Patient } from '@prisma/client';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { PatientsService } from './patients.service';
@@ -20,7 +20,7 @@ export class PatientsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string): Promise<Patient> {
+  findOne(@Param('id', ParseUUIDPipe) id: string): Promise<Patient> {
     return this.patients.findOne(id);
   }
 }
