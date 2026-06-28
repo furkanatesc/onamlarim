@@ -104,6 +104,7 @@
           <span v-if="isLoading || revealing" class="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
           <template v-else>Sisteme Giriş Yap <ArrowRight class="w-4 h-4" /></template>
         </button>
+        <p v-if="errorMsg" class="mt-2 text-xs font-semibold text-rose-600">{{ errorMsg }}</p>
       </form>
 
       <!-- Demo helper -->
@@ -177,8 +178,11 @@ import { useRouter } from 'vue-router'
 import { User, Lock, ArrowRight } from '@lucide/vue'
 import BrandMark from '../components/icons/BrandMark.vue'
 import MeshGradient from '../components/MeshGradient.vue'
+import { useAuthStore } from '../store/useAuthStore'
+import { API_ENABLED } from '../api/config'
 
 const router = useRouter()
+const authStore = useAuthStore()
 
 const username = ref('')
 const password = ref('')
@@ -189,6 +193,7 @@ const videoOk = ref(true)
 const videoReady = ref(false)
 const emblemOk = ref(true)
 const photoOk = ref(true)
+const errorMsg = ref('')
 
 /* ---------- Akışkan perde: tek video, native loop ---------- */
 const curtainVideo = ref(null)
@@ -210,20 +215,28 @@ function quickFill() {
   password.value = '123456'
 }
 
-function handleLogin() {
+async function handleLogin() {
   if (!username.value || !password.value || revealing.value) return
   isLoading.value = true
-  // kısa doğrulama → reveal animasyonu → dashboard
-  loginTimer = setTimeout(() => {
+  errorMsg.value = ''
+  try {
+    await authStore.signIn(username.value, password.value)
+  } catch (e) {
     isLoading.value = false
-    revealing.value = true
-    localStorage.setItem('onamlarim_token', 'demo-token')
-    // Reveal sahnesini önce yerleştir/boyat (mobilde -z-10 ile gizli olduğu için
-    // start state commit edilmiyordu); kartların geçişini bir sonraki frame'de tetikle.
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => { revealActive.value = true })
-    })
-    redirectTimer = setTimeout(() => router.push('/dashboard/overview'), 3000)
-  }, 700)
+    errorMsg.value = 'Giriş başarısız. Kullanıcı adı veya şifre hatalı.'
+    return
+  }
+  // mock mode: mark demo session so router guard allows entry
+  if (!API_ENABLED) {
+    localStorage.setItem('onamlarim_demo', '1')
+  }
+  isLoading.value = false
+  revealing.value = true
+  // Reveal sahnesini önce yerleştir/boyat (mobilde -z-10 ile gizli olduğu için
+  // start state commit edilmiyordu); kartların geçişini bir sonraki frame'de tetikle.
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => { revealActive.value = true })
+  })
+  redirectTimer = setTimeout(() => router.push('/dashboard/overview'), 3000)
 }
 </script>

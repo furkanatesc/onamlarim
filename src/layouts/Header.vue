@@ -99,7 +99,7 @@
             class="absolute right-0 mt-2.5 w-56 rounded-xl border border-slate-200/50 bg-white shadow-xl py-1.5 z-50 text-slate-700 text-xs"
           >
             <div class="px-4 py-2 border-b border-slate-100">
-              <p class="font-bold text-slate-800">Dr. Müge Ateş Tıkız</p>
+              <p class="font-bold text-slate-800">{{ authStore.user?.name || 'Dr. Müge Ateş Tıkız' }}</p>
               <p class="text-[10px] text-slate-400">Jinekolojik Onkolog</p>
             </div>
             <router-link to="/dashboard/profile" @click="isDropdownOpen = false" class="flex items-center gap-2 px-4 py-2 hover:bg-slate-50 transition-colors">
@@ -138,14 +138,17 @@ import { useMagicKeys, onClickOutside } from '@vueuse/core'
 import { useMhrsSync } from '../composables/useMhrsSync'
 import { usePatientStore } from '../store/usePatientStore'
 import { useSidebar } from '../composables/useSidebar'
+import { useAuthStore } from '../store/useAuthStore'
 
 const { toggle } = useSidebar()
 const router = useRouter()
 const patientStore = usePatientStore()
 const { isSyncing, lastSyncTime, syncStatus, triggerSync } = useMhrsSync()
+const authStore = useAuthStore()
 
 function logout() {
-  localStorage.removeItem('onamlarim_token')
+  authStore.signOut()
+  localStorage.removeItem('onamlarim_demo')
   router.push('/login')
 }
 

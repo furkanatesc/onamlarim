@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { API_ENABLED } from '../api/config.js'
 
 const routes = [
   {
@@ -84,17 +85,11 @@ const router = createRouter({
   }
 })
 
-// Optional route guard for auth demonstration
 router.beforeEach((to, from, next) => {
-  const token = localStorage.getItem('onamlarim_token')
-  
-  if (to.path.startsWith('/dashboard') && !token) {
-    next('/login')
-  } else if (to.path === '/login' && token) {
-    next('/dashboard/overview')
-  } else {
-    next()
-  }
+  const authed = API_ENABLED ? !!localStorage.getItem('onamlarim_access') : !!localStorage.getItem('onamlarim_demo')
+  if (to.path.startsWith('/dashboard') && !authed) next('/login')
+  else if (to.path === '/login' && authed) next('/dashboard/overview')
+  else next()
 })
 
 export default router
