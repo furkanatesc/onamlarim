@@ -362,16 +362,14 @@ const patientForm = ref({
   bloodType: 'A Rh+'
 })
 
-function submitPatient() {
-  patientStore.registerPatient({ ...patientForm.value })
-  // Reset form
-  patientForm.value = {
-    name: '',
-    tcNo: '',
-    phone: '',
-    email: '',
-    bloodType: 'A Rh+'
+async function submitPatient() {
+  try {
+    await patientStore.registerPatient({ ...patientForm.value })
+  } catch (e) {
+    alert('Hasta kaydedilemedi. Bilgileri kontrol edin.')
+    return
   }
+  patientForm.value = { name: '', tcNo: '', phone: '', email: '', bloodType: 'A Rh+' }
   closeModal()
 }
 
