@@ -38,26 +38,8 @@ apiClient.interceptors.response.use(
     // Simulate network delay for realistic loading animations
     await new Promise((resolve) => setTimeout(resolve, 800))
 
-    // Match routes and return mock responses
-    if (config.url.includes('/patients')) {
-      return {
-        data: {
-          success: true,
-          data: [
-            { id: 'P-101', name: 'Ahmet Yılmaz', tcNo: '23485910292', phone: '+90 532 123 45 67', email: 'ahmet.yilmaz@email.com', bloodType: 'A Rh+', lastVisit: '2026-06-10', status: 'Active' },
-            { id: 'P-102', name: 'Merve Demir', tcNo: '10984950384', phone: '+90 543 987 65 43', email: 'merve.demir@email.com', bloodType: '0 Rh-', lastVisit: '2026-06-08', status: 'Active' },
-            { id: 'P-103', name: 'Caner Özkan', tcNo: '48201938592', phone: '+90 505 456 78 90', email: 'caner.ozkan@email.com', bloodType: 'B Rh+', lastVisit: '2026-06-05', status: 'Completed' },
-            { id: 'P-104', name: 'Elif Kaya', tcNo: '59203948591', phone: '+90 555 111 22 33', email: 'elif.kaya@email.com', bloodType: 'AB Rh+', lastVisit: '2026-06-11', status: 'Active' },
-            { id: 'P-105', name: 'Mustafa Şahin', tcNo: '30491827463', phone: '+90 533 444 55 66', email: 'mustafa.sahin@email.com', bloodType: '0 Rh+', lastVisit: '2026-05-28', status: 'Inactive' },
-          ]
-        },
-        status: 200,
-        statusText: 'OK',
-        headers: {},
-        config,
-      }
-    }
-
+    // Match routes and return mock responses.
+    // NOTE: this instance is MHRS-only — patients/consents/auth go through src/api/client.js.
     if (config.url.includes('/mhrs/sync-status')) {
       return {
         data: {

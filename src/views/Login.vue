@@ -197,7 +197,6 @@ const errorMsg = ref('')
 
 /* ---------- Akışkan perde: tek video, native loop ---------- */
 const curtainVideo = ref(null)
-let loginTimer = null
 let redirectTimer = null
 
 onMounted(() => {
@@ -206,7 +205,6 @@ onMounted(() => {
 })
 
 onBeforeUnmount(() => {
-  if (loginTimer) clearTimeout(loginTimer)
   if (redirectTimer) clearTimeout(redirectTimer)
 })
 

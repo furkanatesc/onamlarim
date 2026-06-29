@@ -12,8 +12,8 @@ export const usePatientStore = defineStore('patient', () => {
     if (!searchQuery.value.trim()) return patients.value
     const query = searchQuery.value.toLowerCase().trim()
     return patients.value.filter(
-      (p) => p.name.toLowerCase().includes(query) ||
-             p.tcNo.includes(query) ||
+      (p) => (p.name || '').toLowerCase().includes(query) ||
+             (p.tcNo || '').includes(query) ||
              (p.phone || '').includes(query) ||
              p.id.toLowerCase().includes(query),
     )
