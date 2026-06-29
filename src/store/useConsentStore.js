@@ -42,10 +42,16 @@ export const useConsentStore = defineStore('consent', () => {
   // Open the signed PDF. Real mode fetches with the auth token and opens a blob URL.
   async function openPdf(consent) {
     if (!API_ENABLED || !consent.pdfPath) { window.alert('PDF yalnızca canlı backend modunda hazırdır.'); return }
-    const res = await fetch(consentsApi.pdfHref(consent), { headers: { Authorization: `Bearer ${getAccess()}` } })
-    if (!res.ok) { window.alert('PDF açılamadı.'); return }
-    const blob = await res.blob()
-    window.open(URL.createObjectURL(blob), '_blank')
+    try {
+      const res = await fetch(consentsApi.pdfHref(consent), { headers: { Authorization: `Bearer ${getAccess()}` } })
+      if (!res.ok) { window.alert('PDF açılamadı.'); return }
+      const blob = await res.blob()
+      const url = URL.createObjectURL(blob)
+      window.open(url, '_blank')
+      setTimeout(() => URL.revokeObjectURL(url), 60_000)
+    } catch (e) {
+      window.alert('PDF açılamadı.')
+    }
   }
 
   return { consents, loading, error, pendingConsents, signedConsents, load, createConsent, signConsent, openPdf }
