@@ -190,8 +190,15 @@
           </div>
 
           <div class="px-6 py-4 border-t border-slate-100 bg-slate-50/50 flex justify-end gap-3">
-            <button 
-              @click="selectedDetailsConsent = null" 
+            <button
+              v-if="selectedDetailsConsent.status === 'signed' && selectedDetailsConsent.pdfPath"
+              @click="consentStore.openPdf(selectedDetailsConsent)"
+              class="px-4 py-2 border border-[#088496]/30 text-[#088496] rounded-xl text-xs font-semibold hover:bg-[#088496]/10 transition-colors"
+            >
+              PDF'i Aç
+            </button>
+            <button
+              @click="selectedDetailsConsent = null"
               class="px-4 py-2 bg-[#088496] text-white rounded-xl text-xs font-semibold hover:bg-[#066b7a] transition-colors"
             >
               Kapat
@@ -262,9 +269,10 @@ function triggerSignature(consent) {
   isSignatureOpen.value = true
 }
 
-function saveSignature(dataUrl) {
+async function saveSignature(dataUrl) {
   if (signingConsent.value) {
-    consentStore.signConsent(signingConsent.value.id, dataUrl)
+    try { await consentStore.signConsent(signingConsent.value.id, dataUrl) }
+    catch (e) { alert('İmza kaydedilemedi.') }
   }
   isSignatureOpen.value = false
   signingConsent.value = null

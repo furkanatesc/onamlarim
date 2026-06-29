@@ -380,23 +380,17 @@ const consentForm = ref({
   doctor: 'Dr. Müge Ateş Tıkız'
 })
 
-function submitConsent() {
+async function submitConsent() {
   const patient = patientStore.patients[consentForm.value.patientIndex]
-  if (patient) {
-    consentStore.createConsent({
-      patientId: patient.id,
-      patientName: patient.name,
-      procedure: consentForm.value.procedure,
-      doctor: consentForm.value.doctor
+  if (!patient) return
+  try {
+    await consentStore.createConsent({
+      patientId: patient.id, patientName: patient.name,
+      procedure: consentForm.value.procedure, doctor: consentForm.value.doctor,
     })
-    // Reset form
-    consentForm.value = {
-      patientIndex: '',
-      procedure: '',
-      doctor: 'Dr. Müge Ateş Tıkız'
-    }
-    closeModal()
-  }
+  } catch (e) { alert('Onam oluşturulamadı.'); return }
+  consentForm.value = { patientIndex: '', procedure: '', doctor: 'Dr. Müge Ateş Tıkız' }
+  closeModal()
 }
 
 // --- Barcode Scanner Logic ---

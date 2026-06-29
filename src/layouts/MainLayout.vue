@@ -37,19 +37,28 @@
 </template>
 
 <script setup>
-import { watch } from 'vue'
+import { watch, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import MeshGradient from '../components/MeshGradient.vue'
 import Sidebar from './Sidebar.vue'
 import Header from './Header.vue'
 import AssistantWidget from '../components/assistant/AssistantWidget.vue'
 import { useSidebar } from '../composables/useSidebar'
+import { usePatientStore } from '../store/usePatientStore'
+import { useConsentStore } from '../store/useConsentStore'
 
 const route = useRoute()
 const { isOpen, close } = useSidebar()
+const patientStore = usePatientStore()
+const consentStore = useConsentStore()
 
 // Rota değişince mobil drawer'ı kapat
 watch(() => route.path, () => close())
+
+onMounted(async () => {
+  await patientStore.load()
+  await consentStore.load()
+})
 </script>
 
 <style>
